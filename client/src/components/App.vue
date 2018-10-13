@@ -15,6 +15,8 @@ import Header from './Header'
 import CreateRoom from './CreateRoom'
 import ShowRoom from './ShowRoom'
 import Authorise from './Authorise'
+import AccessToken from '../models/AccessToken'
+import Room from '../models/Room'
 
 export default {
   name: 'app',
@@ -29,6 +31,26 @@ export default {
       room: null,
       accessToken: null,
       userId: null
+    }
+  },
+  mounted() {
+    if (localStorage.accessToken) {
+      const { token, token_type, expires, state } = JSON.parse(
+        localStorage.accessToken
+      )
+      this.accessToken = new AccessToken(token, token_type, expires, state)
+    }
+    if (localStorage.room) {
+      const { title, code } = JSON.parse(localStorage.room)
+      this.room = new Room(title, code)
+    }
+  },
+  watch: {
+    room(newRoom) {
+      localStorage.room = JSON.stringify(newRoom)
+    },
+    accessToken(newAccessToken) {
+      localStorage.accessToken = JSON.stringify(newAccessToken)
     }
   },
   methods: {
