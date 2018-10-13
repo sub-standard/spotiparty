@@ -118,5 +118,19 @@ def handle_skip_song(sender):
 
 
 
+def handle_leave_room(sender):
+    if sender in phones:
+        guests = state["rooms"][phones[sender]]["phone_numbers"]
+        del guests[sender]
+        del phones[sender]
+    else:
+        send_text("you are not in a room")
+
+
 app.run(port=3000, host="127.0.0.1")
 
+@app.route('/room-guests/<code>', methods=['POST'])
+@cross_origin
+def request_guests(code):
+    print("recieved a request")
+    return jsonify({'guests': len(state["rooms"][code]["phone_numbers"])})
