@@ -23,10 +23,13 @@ export default {
     }
   },
   methods: {
-    onCreateRoom: function(roomTitle) {
+    onCreateRoom: function(title) {
       // TODO get room id from server
+      code = 1234
+
       this.room = {
-        title: roomTitle
+        title,
+        code
       }
     }
   }
