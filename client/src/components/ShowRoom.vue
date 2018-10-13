@@ -21,7 +21,7 @@
     </div>
 
     <div class="queue-container">
-      <p class="queue-container-title">Playlist</p>
+      <p class="queue-container-title">{{ playlistTitle }}</p>
       <ol>
         <li>Song 1</li>
         <li>Song 2</li>
@@ -38,14 +38,27 @@ import AccessToken from '../models/AccessToken'
 export default {
   data: () => ({
     track: null,
-    playing: false
+    playing: false,
+    interval: null,
+    playlistTitle: null
   }),
   props: {
     room: Room,
-    accessToken: AccessToken,
-    playlistId: null
+    accessToken: AccessToken
   },
   methods: {
+    async getPlaylistName() {
+      const response = await this.$http.get(
+        `https://api.spotify.com/v1/playlists/${this.room.playlistId}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      this.playlistTitle = response.data.name
+    },
     async getCurrentData() {
       const response = await this.$http.get(
         'https://api.spotify.com/v1/me/player/currently-playing',
@@ -69,13 +82,12 @@ export default {
           }
         }
       )
-
-      await this.getCurrentData()
     },
     async onPlayPause() {
       const response = await this.$http.put(
-        'https://api.spotify.com/v1/me/player/' +
-          (this.playing ? 'pause' : 'play'),
+        `https://api.spotify.com/v1/me/player/${
+          this.playing ? 'pause' : 'play'
+        }`,
         {},
         {
           headers: {
@@ -84,7 +96,9 @@ export default {
         }
       )
 
+      this.destroyInterval()
       this.playing = !this.playing
+      setTimeout(this.setupInterval, 1000)
     },
     async onNext() {
       const response = await this.$http.post(
@@ -96,17 +110,23 @@ export default {
           }
         }
       )
-
-      await this.getCurrentData()
+    },
+    setupInterval: function() {
+      this.interval = setInterval(() => {
+        this.getCurrentData()
+      }, 1000)
+    },
+    destroyInterval: function() {
+      clearInterval(this.interval)
+      this.interval = null
     }
   },
   beforeMount: function() {
     this.getCurrentData()
   },
   mounted: function() {
-    window.setInterval(() => {
-      this.getCurrentData()
-    }, 500)
+    this.setupInterval()
+    this.getPlaylistName()
   }
 }
 </script>

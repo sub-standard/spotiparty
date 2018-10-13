@@ -28,14 +28,14 @@ export default {
           playlist_id: playlistId
         })
         .catch(() => {
-          const room = new Room(this.title, '0000')
-          this.$emit('create-room', room, playlistId)
+          const room = new Room(playlistId, '0000')
+          this.$emit('create-room', room)
         })
 
       const { code } = response.data
-      const room = new Room(this.title, code)
+      const room = new Room(playlistId, code)
 
-      this.$emit('create-room', room, playlistId)
+      this.$emit('create-room', room)
     }
   },
   beforeMount: async function() {
