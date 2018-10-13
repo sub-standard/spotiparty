@@ -20,7 +20,7 @@
           </button>
         </div>
       </div>
-        
+
       <div class="commands-container">
 
         <div class="commands-details-container">
@@ -120,8 +120,7 @@ export default {
     },
     async getNoGuests() {
       const response = await this.$http.get(
-        `${Constants.BACKEND_SERVER}/room-guests`,
-        { code: this.room.code }
+        `${Constants.BACKEND_SERVER}/room-guests/${this.room.code}`
       )
 
       this.room.guests = response.data.guests
