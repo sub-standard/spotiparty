@@ -7,8 +7,13 @@
           <div class="playback-info-song">{{this.track.name + ' - ' + this.track.artists[0].name }}</div>
         </div>
       </template>
+      <div class="playback-controls">
+        <button v-on:click="onPrevious">Previous</button>
+        <button v-on:click="onPlayPause">{{ playing ? 'Pause' : ' Play' }}</button>
+        <button v-on:click="onNext">Next</button>
+      </div>
     </div>
-    
+
     <div class="queue-container">
       <p class="queue-container-title">Playlist</p>
       <ol>
@@ -26,7 +31,8 @@ import AccessToken from '../models/AccessToken'
 
 export default {
   data: () => ({
-    track: null
+    track: null,
+    playing: false
   }),
   props: {
     room: Room,
@@ -45,6 +51,47 @@ export default {
       )
 
       this.track = response.data.item
+      this.playing = response.data.is_playing
+    },
+    async onPrevious() {
+      const response = await this.$http.post(
+        'https://api.spotify.com/v1/me/player/previous',
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      await this.getCurrentData()
+    },
+    async onPlayPause() {
+      const response = await this.$http.put(
+        'https://api.spotify.com/v1/me/player/' +
+          (this.playing ? 'pause' : 'play'),
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      this.playing = !this.playing
+    },
+    async onNext() {
+      const response = await this.$http.post(
+        'https://api.spotify.com/v1/me/player/next',
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      await this.getCurrentData()
     }
   },
   beforeMount: function() {
