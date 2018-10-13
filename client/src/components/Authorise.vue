@@ -14,6 +14,7 @@
 <script>
 import queryString from 'query-string'
 
+import Constants from '../Constants'
 import AccessToken from '../models/AccessToken'
 
 export default {
@@ -49,19 +50,16 @@ export default {
   },
   computed: {
     url: () => {
-      const client_id = '2ceb460f532b46ac9e50a3fd7a9db083'
-      const scopes =
-        'playlist-modify-public,user-read-currently-playing,user-read-playback-state,user-modify-playback-state'
-      const redirect_uri = 'http://localhost:4000'
-
       return (
         'https://accounts.spotify.com/authorize' +
         '?response_type=token' +
         '&client_id=' +
-        client_id +
-        (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+        Constants.CLIENT_ID +
+        (Constants.SCOPES
+          ? '&scope=' + encodeURIComponent(Constants.SCOPES)
+          : '') +
         '&redirect_uri=' +
-        encodeURIComponent(redirect_uri)
+        encodeURIComponent(Constants.REDIRECT_URI)
       )
     }
   }
