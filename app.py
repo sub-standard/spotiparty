@@ -1,26 +1,21 @@
 import requests
 import spotipy
 
-spotify = spotipy.Spotify()
-<<<<<<< HEAD
+token = "BQDVhemM91QW1DXyFWp65YuwIsEoZLRsD2nmmenkusKznZJwoJ28hQ0JdM0qHBWzNns1ztPbRkzodViZDJYPkYfVIZ-KEqgWYwsgG8jhF2P-LGO4LD_fCPCFzffX5djVaWNihsKczrEw2pK4qpdCyLGtuJJvXjJuMZU0UtSo7AZU1BEDwUs"
 
-req = requests.get(server, auth=('user',"pass"))
-=======
-req = requests.get("127.0.0.1", auth=('user'))
->>>>>>> 46c47696fdb2e24779c6b5817b549e3f36810f8f
-print(req.text)
+spotify = spotipy.Spotify(auth=token)
 
-
-if len(req.text) > 1:
-    name = ' '.join(req.text[1:])
-else:
-    name = 'Sample'
-
+# req.text = a query string
+# if len(req.text) > 1:
+#     name = ' '.join(req.text[1:])
+# else:
+#     name = 'Sample'
+name = "adele"
 results = spotify.search(q='artist:' + name, type='artist')
 items = results['artists']['items']
 if len(items) > 0:
     artist = items[0]
-    print artist['name'], artist['images'][0]['url']
+    print (artist['name'], artist['images'][0]['url'])
 
 
 
