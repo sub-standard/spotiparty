@@ -15,7 +15,7 @@
     </div>
 
     <div class="queue-container">
-      <p class="queue-container-title">Playlist</p>
+      <p class="queue-container-title">{{ playlistTitle }}</p>
       <ol>
         <li>Song 1</li>
         <li>Song 2</li>
@@ -33,13 +33,26 @@ export default {
   data: () => ({
     track: null,
     playing: false,
-    interval: null
+    interval: null,
+    playlistTitle: null
   }),
   props: {
     room: Room,
     accessToken: AccessToken
   },
   methods: {
+    async getPlaylistName() {
+      const response = await this.$http.get(
+        `https://api.spotify.com/v1/playlists/${this.room.playlistId}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      this.playlistTitle = response.data.name
+    },
     async getCurrentData() {
       const response = await this.$http.get(
         'https://api.spotify.com/v1/me/player/currently-playing',
@@ -66,8 +79,9 @@ export default {
     },
     async onPlayPause() {
       const response = await this.$http.put(
-        'https://api.spotify.com/v1/me/player/' +
-          (this.playing ? 'pause' : 'play'),
+        `https://api.spotify.com/v1/me/player/${
+          this.playing ? 'pause' : 'play'
+        }`,
         {},
         {
           headers: {
@@ -106,6 +120,7 @@ export default {
   },
   mounted: function() {
     this.setupInterval()
+    this.getPlaylistName()
   }
 }
 </script>
