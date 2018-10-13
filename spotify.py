@@ -10,7 +10,7 @@ with open("client_id.txt", r) as f):
 with open("client_secret.txt", r) as f):
     client_secret = f.read()
 
-with open("token", r) as f):
+with open("token.txt", r) as f):
     token = f.read()
 
 # token = "BQDVhemM91QW1DXyFWp65YuwIsEoZLRsD2nmmenkusKznZJwoJ28hQ0JdM0qHBWzNns1ztPbRkzodViZDJYPkYfVIZ-KEqgWYwsgG8jhF2P-LGO4LD_fCPCFzffX5djVaWNihsKczrEw2pK4qpdCyLGtuJJvXjJuMZU0UtSo7AZU1BEDwUs"
