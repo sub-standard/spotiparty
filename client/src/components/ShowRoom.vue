@@ -39,7 +39,6 @@ export default {
 
 .playback-container {
   flex: 1;
-  margin-right: 32px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -48,20 +47,22 @@ export default {
 }
 
 .playback-info {
-  box-shadow: 10px 10px 0 0 black;
-  border: 5px solid black;
 }
 
 .playback-info-art {
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
   width: 100%;
+  margin-bottom: 16px;
 }
 
 .playback-info-song {
-  border-top: 5px solid black;
-  background: #1db954;
-  color: white;
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+  font-weight: bold;
   font-size: 2em;
   padding: 16px;
+  text-align: center;
 }
 
 .queue-container {
@@ -69,6 +70,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+  padding: 32px;
 }
 
 .queue-container-title {
