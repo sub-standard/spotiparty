@@ -1,4 +1,5 @@
-
+*.txt
+*.xml
 *.xml
 *.iml
 *.txt
