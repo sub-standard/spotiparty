@@ -195,6 +195,7 @@ export default {
   flex: 1;
   font-size: 3.2em;
   height: 80px;
+  cursor: pointer;
 }
 
 .playback-button:focus {
@@ -226,6 +227,7 @@ export default {
 
 .queue-container ol {
   list-style-position: inside;
+  font-size: 1rem;
 }
 
 .queue-container ol li {

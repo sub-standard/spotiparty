@@ -78,6 +78,7 @@ export default {
   border: 5px solid black;
   width: 232px;
   margin-bottom: 16px;
+  transition: all 100ms ease-out;
 }
 
 .playlists-container li p {
@@ -87,6 +88,12 @@ export default {
   font-weight: bold;
   padding: 8px;
   text-align: center;
+  transition: all 100ms ease-out;
+}
+
+.playlists-container li:hover p {
+  box-shadow: 14px 14px 0 0 black;
+  transform: translateY(-0px) scale(1.02);
 }
 </style>
 

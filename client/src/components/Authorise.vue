@@ -96,5 +96,11 @@ export default {
   cursor: pointer;
   font-size: 2em;
   font-weight: bold;
+  transition: all 100ms ease-out;
+}
+
+.authorise-button:hover {
+  box-shadow: 14px 14px 0 0 black;
+  transform: translateY(-0px) scale(1.02);
 }
 </style>
