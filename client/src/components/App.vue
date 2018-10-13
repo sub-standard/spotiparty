@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <Header v-bind:room="room"  v-if="accessToken" />
+    <Header v-bind:room="room"  v-if="accessToken"/>
 
-    <Authorise v-on:authorised="onAuthorised" v-if="!accessToken" />
+    <Authorise v-on:authorised="onAuthorised" v-if="!accessToken"/>
     <template v-else>
-      <ShowRoom v-if="room"  v-bind:room="room" />
-      <MakeRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
+      <ShowRoom v-if="room" v-bind:room="room"/>
+      <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken"/>
     </template>
   </div>
 </template>
 
 <script>
 import Header from './Header'
-import MakeRoom from './MakeRoom'
+import CreateRoom from './CreateRoom'
 import ShowRoom from './ShowRoom'
 import Authorise from './Authorise'
 
@@ -20,7 +20,7 @@ export default {
   name: 'app',
   components: {
     Header,
-    MakeRoom,
+    CreateRoom,
     ShowRoom,
     Authorise
   },
