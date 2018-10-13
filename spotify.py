@@ -25,7 +25,7 @@ class spotify_queuer:
         print(results)
 
     def skip_track(self):
-        devices = r.get("https://api.spotify.com/v1/me/player/devices", auth = "Authorization: Bearer {" + self.token + "}")
+        devices = r.get("https://api.spotify.com/v1/me/player/devices", json={"Authorization":self.token + })
         device_id = devices["devices"][0]["id"]
         sp = spotipy.Spotify(auth=token)
         sp.next_track(device_id)
@@ -35,4 +35,3 @@ class spotify_queuer:
 # # pp.pprint(sp.current_user_playlists())
 # me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
 # me.skip_track()
-

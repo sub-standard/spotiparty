@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from pprint import pprint
 from handle_messages import handle_add_user, handle_add_song, send_text
 import re
-
 from state import state
 import requests
 
@@ -17,7 +16,7 @@ def create_room():
     if request.is_json:
         json = request.get_json() #accept spotify access token
         state["next_room_id"] += 1
-        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": json["access_token"],"username": json["username"], "playlist_id": json["playlist_id"]} #create a new room with empty phone numbers
+        state["rooms"][str(state["next_room_id"] )] = {"phone_numbers": [], "access_token": json["access_token"],"username": json["username"], "playlist_id": json["playlist_id"]} #create a new room with empty phone numbers
         return jsonify({'code': str(state["next_room_id"])})
 
 
