@@ -8,9 +8,15 @@
         </div>
       </template>
       <div class="playback-controls">
-        <button v-on:click="onPrevious">Previous</button>
-        <button v-on:click="onPlayPause">{{ playing ? 'Pause' : ' Play' }}</button>
-        <button v-on:click="onNext">Next</button>
+        <button class="playback-button" v-on:click="onPrevious">
+          <font-awesome-icon icon="backward" />
+        </button>
+        <button class="playback-button" v-on:click="onPlayPause">
+          <font-awesome-icon v-bind:icon="playing ? 'play' : 'pause'" />
+        </button>
+        <button class="playback-button" v-on:click="onNext">
+          <font-awesome-icon icon="forward" />
+        </button>
       </div>
     </div>
 
@@ -133,6 +139,32 @@ export default {
   font-size: 2em;
   padding: 16px;
   text-align: center;
+  margin-bottom: 16px;
+}
+
+.playback-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+}
+
+.playback-button {
+  border: none;
+  background-color: #3ad772;
+  flex: 1;
+  font-size: 3.2em;
+  height: 80px;
+}
+
+.playback-button:focus {
+  outline: none;
+}
+
+.playback-button:not(:last-child) {
+  border-right: 5px solid black;
 }
 
 .queue-container {
