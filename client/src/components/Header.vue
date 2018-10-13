@@ -4,7 +4,8 @@
       <a href="/">SpotiParty</a>
     </p>
     
-    <p v-if="room">Room Code: {{ room.code }}</p>
+    <p>Room Code: {{ room.code }}</p>
+    <p class="sign-out" @click="signOut">Sign out</p>
   </div>
 </template>
 
@@ -14,6 +15,12 @@ import Room from '../models/Room'
 export default {
   props: {
     room: Room
+  },
+  methods: {
+    signOut: function() {
+      localStorage.clear()
+      location.reload()
+    }
   }
 }
 </script>
@@ -33,5 +40,11 @@ export default {
 .title {
   font-size: inherit;
   flex: 1;
+}
+
+.sign-out {
+  font-size: 1rem;
+  margin-left: 24px;
+  cursor: pointer;
 }
 </style>

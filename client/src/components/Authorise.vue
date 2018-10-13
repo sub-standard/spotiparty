@@ -22,8 +22,6 @@ export default {
   },
   mounted: function() {
     this.$nextTick(function() {
-      console.log(this.accessToken)
-
       const { access_token, token_type, expires_in, state } = queryString.parse(
         window.location.hash
       )

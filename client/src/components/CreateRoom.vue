@@ -23,7 +23,7 @@ export default {
   methods: {
     onCreateRoom: async function(playlistId) {
       const response = await this.$http
-        .post('https://1ddcefc7.ngrok.io/create-room', {
+        .post('https://eb3267bc.ngrok.io/create-room', {
           access_token: this.accessToken.token,
           playlist_id: playlistId
         })
