@@ -16,6 +16,7 @@ def handle_add_user(sender, room_number):
 
 def handle_add_song(song_name,sender):
     room = phones[sender]
+    print(room)
     token = state[room]["access_token"]
     queue = state[room]["spotify_queue"]
     song_id = get_track_id(song_name,token)
