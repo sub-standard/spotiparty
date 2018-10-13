@@ -2,28 +2,39 @@
   <div id="app">
     <h1>SpotiParty</h1>
 
-    <ShowRoom v-if="room !== null" v-bind:room="room" />
-    <MakeRoom v-else v-on:create-room="onCreateRoom" />
+    <div v-if="accessToken !== null">
+      <ShowRoom v-if="room !== null" v-bind:room="room" />
+      <MakeRoom v-else v-on:create-room="onCreateRoom" />
+    </div>
+    <div v-else>
+      <Authorise v-on:authorised="onAuthorised" />
+    </div>
   </div>
 </template>
 
 <script>
 import MakeRoom from './MakeRoom'
 import ShowRoom from './ShowRoom'
+import Authorise from './Authorise'
 import Room from '../models/Room'
 
 export default {
   name: 'app',
   components: {
     MakeRoom,
-    ShowRoom
+    ShowRoom,
+    Authorise
   },
   data: function() {
     return {
-      room: null
+      room: null,
+      accessToken: null
     }
   },
   methods: {
+    onAuthorised: function(accessToken) {
+      this.accessToken = accessToken
+    },
     onCreateRoom: function(title) {
       // TODO get room id from server
       const code = 1234
