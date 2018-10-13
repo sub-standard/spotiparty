@@ -2,8 +2,12 @@ import requests
 import spotipy
 
 spotify = spotipy.Spotify()
+<<<<<<< HEAD
 
 req = requests.get(server, auth=('user',"pass"))
+=======
+req = requests.get("127.0.0.1", auth=('user'))
+>>>>>>> 46c47696fdb2e24779c6b5817b549e3f36810f8f
 print(req.text)
 
 
