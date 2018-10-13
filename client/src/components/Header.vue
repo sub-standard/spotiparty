@@ -4,8 +4,10 @@
       <a href="/">SpotiParty</a>
     </p>
     
-    <p>Room Code: {{ room.code }}</p>
-    <p class="sign-out" @click="signOut">Sign out</p>
+    <template v-if="room">
+      <p>Room Code: {{ room.code }}</p>
+      <p class="sign-out" @click="signOut">Sign out</p>
+    </template>
   </div>
 </template>
 
