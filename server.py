@@ -16,7 +16,7 @@ def create_room():
     if request.is_json:
         json = request.get_json() #accept spotify access token
         state["next_room_id"] += 1
-        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": json["access_token"] } #create a new room with empty phone numbers
+        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": json["access_token"],"username": json["username"], "playlist_id": json["playlist_id"]} #create a new room with empty phone numbers
         return jsonify({'code': str(state["next_room_id"])})
 
 
