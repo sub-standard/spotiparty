@@ -1,6 +1,6 @@
 import pprint
 import sys
-
+import requests as r
 import spotipy
 import spotipy.util as util
 
@@ -24,16 +24,15 @@ class spotify_queuer:
         results = sp.user_playlist_add_tracks(self.username, self.playlist_id, [track_id])
         print(results)
 
-# <<<<<<< HEAD
-# pp = pprint.PrettyPrinter(indent=4)
-# sp = spotipy.Spotify(auth=token)
-# # pp.pprint(sp.current_user_playlists())
-# me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
-# me.add_song_to_playlist(track_id="6rqhFgbbKwnb9MLmUQDhG6")
-# =======
-#     def skip_track(self):
-#         devices = r.get("https://api.spotify.com/v1/me/player/devices", auth = "Authorization: Bearer {" + self.token + "}")
-#         device_id = devices["devices"][0]["id"]
-#         sp = spotipy.Spotify(auth=token)
-#         sp.next_track(device_id)
-# >>>>>>> b34a252684a34589818bc6baddf8dcb50e0bd36d
+    def skip_track(self):
+        devices = r.get("https://api.spotify.com/v1/me/player/devices", auth = "Authorization: Bearer {" + self.token + "}")
+        device_id = devices["devices"][0]["id"]
+        sp = spotipy.Spotify(auth=token)
+        sp.next_track(device_id)
+
+pp = pprint.PrettyPrinter(indent=4)
+sp = spotipy.Spotify(auth=token)
+# pp.pprint(sp.current_user_playlists())
+me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
+me.add_song_to_playlist(track_id="6rqhFgbbKwnb9MLmUQDhG6")
+
