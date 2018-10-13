@@ -4,16 +4,14 @@ import requests as r
 import spotipy
 import spotipy.util as util
 
-with open("client_id.txt", r) as f):
+with open("client_id.txt", "r") as f:
     client_id = f.read()
 
-with open("client_secret.txt", r) as f):
+with open("client_secret.txt", "r") as f:
     client_secret = f.read()
 
-with open("token.txt", r) as f):
-    token = f.read()
 
-# token = "BQDVhemM91QW1DXyFWp65YuwIsEoZLRsD2nmmenkusKznZJwoJ28hQ0JdM0qHBWzNns1ztPbRkzodViZDJYPkYfVIZ-KEqgWYwsgG8jhF2P-LGO4LD_fCPCFzffX5djVaWNihsKczrEw2pK4qpdCyLGtuJJvXjJuMZU0UtSo7AZU1BEDwUs"
+
 
 class spotify_queuer:
     def __init__(self,username,token, playlist_id):
@@ -37,8 +35,3 @@ class spotify_queuer:
         device_id = devices["devices"][0]["id"]
         sp = spotipy.Spotify(auth=token)
         sp.next_track(device_id)
-
-# pp = pprint.PrettyPrinter(indent=4)
-# # pp.pprint(sp.current_user_playlists())
-me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
-me.skip_track()

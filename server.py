@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from pprint import pprint
 from handle_messages import handle_add_user, handle_add_song, send_text
 from spotify import spotify_queuer
+import spotipy
+import requests as r
 import re
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
@@ -21,17 +23,17 @@ rooms = state["rooms"]
 def create_room():
     print("recieved a request")
     if request.is_json:
-        json = request.get_json() #accept spotify access token
-        print(json)
-        username
+        req_json = request.get_json() #accept spotify access token
+        print(req_json)
+        userid = r.get("https://api.spotify.com/v1/me", headers={"Authorization": "Bearer " + req_json["access_token"]}).json()["id"]
         state["next_room_id"] += 1
-        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": json["access_token"],"username": username, "playlist_id": json["playlist_id"], "spotify_queue": spotify_queuer(json["username"],json["access_token"],json["playlist_id"])} #create a new room with empty phone numbers
+        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": req_json["access_token"],"userid": userid, "playlist_id": req_json["playlist_id"], "spotify_queue": spotify_queuer(userid,req_json["access_token"],req_json["playlist_id"])} #create a new room with empty phone numbers
+        print(state)
         return jsonify({'code': str(state["next_room_id"])})
 
 
 
-@app.route('/nexmo', methods=['GET', 'POST','OPTIONS'])
-@cross_origin()
+@app.route('/nexmo', methods=['GET'])
 def delivery_receipt():
     print("recieved a request")
     if request.is_json:
