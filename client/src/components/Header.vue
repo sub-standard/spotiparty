@@ -3,9 +3,9 @@
     <p class="title">
       <a href="/">SpotiParty</a>
     </p>
-    
+
     <template v-if="room">
-      <p>Room Code: {{ room.code }}</p>
+      <p>Room Code: {{ room.code }}{{ guestsString }}</p>
       <p class="sign-out" @click="signOut">Sign out</p>
     </template>
   </div>
@@ -22,6 +22,16 @@ export default {
     signOut: function() {
       localStorage.clear()
       location.reload()
+    }
+  },
+  computed: {
+    guestsString: function() {
+      const guests = this.room.guests
+      if (guests > 0) {
+        return guests == 1 ? ' (1 guest)' : ` (${guests} guests)`
+      }
+
+      return ''
     }
   }
 }

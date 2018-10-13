@@ -22,7 +22,12 @@
       </div>
 
       <div class="commands-container">
-        <p>Join</p>
+        <p>Text {{ phoneNo }} and text a command. You must join the room to issue ADD and SKIP commands.</p>
+        <ul>
+          <li>Join the room: JOIN {{ room.code }}</li>
+          <li>Add a song to the playlist: ADD <i>song name</i></li>
+          <li>Skip a song: SKIP</li>
+        </ul>
       </div>
 
       <div class="queue-container">
@@ -39,6 +44,7 @@
 </template>
 
 <script>
+import Constants from '../Constants'
 import Room from '../models/Room'
 import AccessToken from '../models/AccessToken'
 
@@ -53,6 +59,11 @@ export default {
   props: {
     room: Room,
     accessToken: AccessToken
+  },
+  computed: {
+    phoneNo: function() {
+      return Constants.PHONE_NO
+    }
   },
   methods: {
     async getPlaylistName() {
@@ -92,8 +103,16 @@ export default {
 
       this.tracks = response.data.tracks.items.map(item => item.track)
     },
+    async getNoGuests() {
+      const response = await this.$http.get(
+        `${Constants.BACKEND_SERVER}/room-guests`,
+        { code: this.room.code }
+      )
+
+      this.room.guests = response.data.guests
+    },
     async getCurrentData() {
-      this.getPlaybackState()
+      Promise.all([this.getPlaybackState(), this.getNoGuests()])
     },
     async onPrevious() {
       const response = await this.$http.post(

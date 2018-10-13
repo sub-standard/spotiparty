@@ -1,4 +1,5 @@
 export default {
+  PHONE_NO: '07418343219',
   BACKEND_SERVER: 'https://eb3267bc.ngrok.io',
   CLIENT_ID: '2ceb460f532b46ac9e50a3fd7a9db083',
   SCOPES:
