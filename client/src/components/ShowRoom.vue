@@ -22,7 +22,7 @@
       </div>
 
       <div class="commands-container">
-        <p>Text {{ Constants.PHONE_NO }} and text a command. You must join the room to issue ADD and SKIP commands.</p>
+        <p>Text {{ phoneNo }} and text a command. You must join the room to issue ADD and SKIP commands.</p>
         <ul>
           <li>Join the room: JOIN {{ room.code }}</li>
           <li>Add a song to the playlist: ADD <i>song name</i></li>
@@ -59,6 +59,11 @@ export default {
   props: {
     room: Room,
     accessToken: AccessToken
+  },
+  computed: {
+    phoneNo: function() {
+      return Constants.PHONE_NO
+    }
   },
   methods: {
     async getPlaylistName() {
