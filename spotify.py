@@ -19,4 +19,6 @@ class spotify_queuer:
         results = sp.user_playlist_add_tracks(username, playlist_id, [track_id])
         print(results)
 
-
+    def skip_track(self):
+        devices = r.get("https://api.spotify.com/v1/me/player/devices", auth = "Authorization: Bearer {" + self.token + "}")
+        device_id = devices["devices"][0]["id"]
