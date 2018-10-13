@@ -35,6 +35,10 @@ export default {
           },
           response => {
             // Error
+            // TODO don't make fake code
+            const room = new Room(this.title, '0000')
+
+            this.$emit('create-room', room)
           }
         )
     }
