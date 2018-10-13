@@ -63,6 +63,8 @@ def handle_add_user(sender, room_number):
     rooms = state['rooms']
     if room_number not in rooms:
         send_text(sender, "that room does not exist")
+    elif sender in phones:
+        send_text(sender, "you are already in a room, leave to join another")
     elif rooms[phone_numbers] <= MAX_GUESTS:
         send_text(sender, "max guests reached")
     else:
@@ -89,6 +91,15 @@ def handle_skip_song(sender):
     room = phones[sender]
     token = state[room]["access_token"]
     queue = state[room]["spotify_queue"]
+
+
+def handle_leave_room(sender):
+    if sender in phones:
+        guests = state["rooms"][phones[sender]]["phone_numbers"]
+        del guests[sender]
+        del phones[sender]
+    else:
+        send_text("you are not in a room")
 
 
 app.run(port=3000, host="127.0.0.1")
