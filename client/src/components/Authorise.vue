@@ -17,10 +17,18 @@ import queryString from 'query-string'
 import AccessToken from '../models/AccessToken'
 
 export default {
+  props: {
+    accessToken: AccessToken
+  },
   mounted: function() {
     this.$nextTick(function() {
+      if (this.accessToken !== null && this.accessToken.needsRenewing()) {
+        window.location.href = this.url
+        return
+      }
+
       const { access_token, token_type, expires_in, state } = queryString.parse(
-        location.hash
+        window.location.hash
       )
 
       if (
@@ -34,6 +42,8 @@ export default {
           Date.now() + expires_in * 100,
           state
         )
+
+        window.location.hash = ''
 
         this.$emit('authorised', accessToken)
       }
