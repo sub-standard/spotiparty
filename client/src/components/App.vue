@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-bind:room="room" />
+    <Header v-bind:room="room"  v-if="accessToken" />
 
     <Authorise v-on:authorised="onAuthorised" v-if="!accessToken" />
     <template v-else>
