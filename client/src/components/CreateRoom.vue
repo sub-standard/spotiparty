@@ -75,20 +75,22 @@ export default {
 }
 
 .playlists-container li {
-  box-shadow: 10px 10px 0 0 black;
-  border: 5px solid black;
-  margin: 16px;
+  margin: 24px;
   cursor: pointer;
 }
 
 .playlists-container li img {
-  width: 240px;
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+  width: 232px;
+  margin-bottom: 16px;
 }
 
 .playlists-container li p {
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
   font-size: 1.6em;
-  background: #1db954;
-  color: white;
+  font-weight: bold;
   padding: 8px;
   text-align: center;
 }
