@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Header v-bind:room="room"  v-if="accessToken"/>
+    <Header v-bind:room="room"  v-if="accessToken" />
 
-    <Authorise v-on:authorised="onAuthorised" v-if="!accessToken"/>
+    <Authorise v-on:authorised="onAuthorised" v-if="!accessToken" />
     <template v-else>
-      <ShowRoom v-if="room" v-bind:room="room"/>
-      <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken"/>
+      <ShowRoom v-if="room" v-bind:room="room" />
+      <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
     </template>
   </div>
 </template>
@@ -27,7 +27,8 @@ export default {
   data: function() {
     return {
       room: null,
-      accessToken: null
+      accessToken: null,
+      userId: null
     }
   },
   methods: {

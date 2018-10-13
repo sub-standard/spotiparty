@@ -1,9 +1,11 @@
 <template>
   <div class="container">
-    <form v-on:submit="e => {e.preventDefault(); onCreateRoom()}">
-      <input v-model="title" placeholder="Room title"/>
-      <button>Create a room</button>
-    </form>
+    <ul class="playlists-container">
+      <li v-for="playlist in playlists" :key="playlist.id">
+        <img v-bind:src="playlist.images[0].url" v-bind:alt="playlist.name" />
+        <p>{{ playlist.name }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -15,11 +17,9 @@ export default {
   props: {
     accessToken: AccessToken
   },
-  data: function() {
-    return {
-      title: ''
-    }
-  },
+  data: () => ({
+    playlists: null
+  }),
   methods: {
     onCreateRoom: function() {
       this.$http
@@ -42,6 +42,18 @@ export default {
           }
         )
     }
+  },
+  beforeMount: async function() {
+    const response = await this.$http.get(
+      `https://api.spotify.com/v1/me/playlists`,
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.accessToken.token
+        }
+      }
+    )
+
+    this.playlists = response.body.items
   }
 }
 </script>
@@ -49,36 +61,35 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 1;
 }
 
-form {
+.playlists-container {
+  list-style-type: none;
+  width: 100vw;
   display: flex;
-  font-size: 2em;
-  width: 500px;
+  flex-wrap: wrap;
+}
+
+.playlists-container li {
   box-shadow: 10px 10px 0 0 black;
-}
-
-input {
-  flex: 1;
-  border: none;
   border: 5px solid black;
-  padding: 0 16px;
+  margin: 16px;
+  cursor: pointer;
 }
 
-input:focus {
-  outline: none;
+.playlists-container li img {
+  width: 240px;
 }
 
-button {
-  border: 5px solid black;
-  border-left: none;
+.playlists-container li p {
+  font-size: 1.6em;
   background: #1db954;
   color: white;
-  padding: 16px;
-  cursor: pointer;
+  padding: 8px;
+  text-align: center;
 }
 </style>
 
