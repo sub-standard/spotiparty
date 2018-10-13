@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import Constants from '../Constants'
 import Room from '../models/Room'
 import AccessToken from '../models/AccessToken'
 
@@ -92,8 +93,16 @@ export default {
 
       this.tracks = response.data.tracks.items.map(item => item.track)
     },
+    async getNoGuests() {
+      const response = await this.$http.get(
+        `${Constants.BACKEND_SERVER}/room-guests`,
+        { code: this.room.code }
+      )
+
+      this.room.guests = response.data.guests
+    },
     async getCurrentData() {
-      this.getPlaybackState()
+      Promise.all([this.getPlaybackState(), this.getNoGuests()])
     },
     async onPrevious() {
       const response = await this.$http.post(
