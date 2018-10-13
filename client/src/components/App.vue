@@ -1,16 +1,24 @@
 <template>
   <div id="app">
-    <MakeRoom />
+    <ShowRoom v-if="room !== null" />
+    <MakeRoom v-else />
   </div>
 </template>
 
 <script>
 import MakeRoom from './MakeRoom'
+import ShowRoom from './ShowRoom'
 
 export default {
   name: 'app',
   components: {
-    MakeRoom
+    MakeRoom,
+    ShowRoom
+  },
+  data: function() {
+    return {
+      room: null
+    }
   }
 }
 </script>
