@@ -29,7 +29,7 @@ export default {
         .then(
           response => {
             const code = response.data
-            const room = new Room(this.title, this.code)
+            const room = new Room(this.title, code)
 
             this.$emit('create-room', room)
           },
