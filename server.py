@@ -22,15 +22,15 @@ def delivery_receipt():
     if request.is_json:
         pprint(request.get_json())
         text_message = request.get_json['text']
-        sender = request.get_json['msisdn']
+        sender = request.get_json['msisdn'] #sender phone number
         if text_message[:4] == "join":
-            room_number = str(re.search(r"join (\d+)",text_message).group(1))
+            room_number = str(re.search(r"join (\d+)",text_message).group(1)) #extract room number to join from text message
             if room_number == None:
                 send_text("incorect command", sender)
             else:
                 handle_add_user(sender, room_number)
         elif text_message[:3] == "add":
-            song_query = re.search(r"^add (.+)$" , text_message).group(1)
+            song_query = re.search(r"^add (.+)$" , text_message).group(1) #extract song to add to playlsist from text message
             handle_add_song(song_query)
 
     else:
