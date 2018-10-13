@@ -5,6 +5,6 @@ export default function AccessToken(token, token_type, expires, state) {
   this.state = state
 
   this.needsRenewing = function() {
-    this.expires <= Date.now()
+    return this.expires <= Date.now()
   }
 }

@@ -2,7 +2,7 @@
   <div id="app">
     <Header v-bind:room="room"  v-if="accessToken" />
 
-    <Authorise v-on:authorised="onAuthorised" v-if="!hasValidAccessToken()" />
+    <Authorise v-if="!hasValidAccessToken()" v-on:authorised="onAuthorised" v-bind:accessToken="accessToken" />
     <template v-else>
       <ShowRoom v-if="room" v-bind:room="room"  v-bind:accessToken="accessToken" />
       <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
@@ -28,21 +28,23 @@ export default {
   },
   data: function() {
     return {
-      room: null,
-      accessToken: null,
+      room: (function() {
+        if (localStorage.room) {
+          const { title, code } = JSON.parse(localStorage.room)
+          return new Room(title, code)
+        }
+        return null
+      })(),
+      accessToken: (function() {
+        if (localStorage.accessToken) {
+          const { token, token_type, expires, state } = JSON.parse(
+            localStorage.accessToken
+          )
+          return new AccessToken(token, token_type, expires, state)
+        }
+        return null
+      })(),
       userId: null
-    }
-  },
-  mounted() {
-    if (localStorage.accessToken) {
-      const { token, token_type, expires, state } = JSON.parse(
-        localStorage.accessToken
-      )
-      this.accessToken = new AccessToken(token, token_type, expires, state)
-    }
-    if (localStorage.room) {
-      const { title, code } = JSON.parse(localStorage.room)
-      this.room = new Room(title, code)
     }
   },
   watch: {
