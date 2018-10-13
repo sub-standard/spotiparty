@@ -22,10 +22,7 @@ export default {
   },
   mounted: function() {
     this.$nextTick(function() {
-      if (this.accessToken != null && this.accessToken.needsRenewing()) {
-        window.location.href = this.url
-        return
-      }
+      console.log(this.accessToken)
 
       const { access_token, token_type, expires_in, state } = queryString.parse(
         window.location.hash
@@ -46,6 +43,9 @@ export default {
         window.location.hash = ''
 
         this.$emit('authorised', accessToken)
+      } else if (this.accessToken != null && this.accessToken.needsRenewing()) {
+        window.location.href = this.url
+        return
       }
     })
   },
