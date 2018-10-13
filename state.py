@@ -14,3 +14,5 @@
 # }
 
 state = {"next_room_id": 999, "rooms":{}}
+
+phones = {} #key = phone num, val = phone num
