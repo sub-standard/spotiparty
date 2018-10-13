@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <div class="playback-container">
-      <div class="playback-info">
-        <img class="playback-info-art" src="https://i.pinimg.com/474x/25/12/28/2512289ea977440827a012d64ebda89e--night-vision-my-music.jpg" />
-        <div class="playback-info-song">Demons - Imagine Dragons</div>
-      </div>
+      <template v-if="this.track">
+        <div class="playback-info">
+          <img class="playback-info-art" v-bind:src="this.track.album.images[0].url" />
+          <div class="playback-info-song">{{this.track.name + ' - ' + this.track.artists[0].name }}</div>
+        </div>
+      </template>
     </div>
     
     <div class="queue-container">
@@ -20,10 +22,32 @@
 
 <script>
 import Room from '../models/Room'
+import AccessToken from '../models/AccessToken'
 
 export default {
+  data: () => ({
+    track: null
+  }),
   props: {
-    room: Room
+    room: Room,
+    accessToken: AccessToken
+  },
+  methods: {
+    async getCurrentData() {
+      const response = await this.$http.get(
+        'https://api.spotify.com/v1/me/player/currently-playing',
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      this.track = response.data.item
+    }
+  },
+  beforeMount: function() {
+    this.getCurrentData()
   }
 }
 </script>
@@ -32,21 +56,13 @@ export default {
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 16px;
+  padding: 32px;
   flex: 1;
 }
 
 .playback-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.playback-info {
 }
 
 .playback-info-art {
@@ -73,6 +89,7 @@ export default {
   box-shadow: 10px 10px 0 0 black;
   border: 5px solid black;
   padding: 32px;
+  margin: 0 10px 0 32px;
 }
 
 .queue-container-title {

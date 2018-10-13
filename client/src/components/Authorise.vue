@@ -52,7 +52,7 @@ export default {
   computed: {
     url: () => {
       const client_id = '2ceb460f532b46ac9e50a3fd7a9db083'
-      const scopes = 'playlist-modify-public'
+      const scopes = 'playlist-modify-public,user-read-currently-playing'
       const redirect_uri = 'http://localhost:4000'
 
       return (
