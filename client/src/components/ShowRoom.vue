@@ -22,7 +22,12 @@
       </div>
 
       <div class="commands-container">
-        <p>Join</p>
+        <p>Text {{ Constants.PHONE_NO }} and text a command. You must join the room to issue ADD and SKIP commands.</p>
+        <ul>
+          <li>Join the room: JOIN {{ room.code }}</li>
+          <li>Add a song to the playlist: ADD <i>song name</i></li>
+          <li>Skip a song: SKIP</li>
+        </ul>
       </div>
 
       <div class="queue-container">
