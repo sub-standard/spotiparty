@@ -1,4 +1,4 @@
-export default function Room(title, code) {
-  this.title = title
+export default function Room(playlistId, code) {
+  this.playlistId = playlistId
   this.code = code
 }

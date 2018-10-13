@@ -37,8 +37,7 @@ export default {
   }),
   props: {
     room: Room,
-    accessToken: AccessToken,
-    playlistId: null
+    accessToken: AccessToken
   },
   methods: {
     async getCurrentData() {

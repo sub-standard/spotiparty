@@ -4,7 +4,7 @@
 
     <Authorise v-if="!hasValidAccessToken()" v-on:authorised="onAuthorised" v-bind:accessToken="accessToken" />
     <template v-else>
-      <ShowRoom v-if="room" v-bind:room="room"  v-bind:accessToken="accessToken" v-bind:playlistId="playlistId" />
+      <ShowRoom v-if="room" v-bind:room="room"  v-bind:accessToken="accessToken" />
       <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
     </template>
   </div>
@@ -30,8 +30,8 @@ export default {
     return {
       room: (function() {
         if (localStorage.room) {
-          const { title, code } = JSON.parse(localStorage.room)
-          return new Room(title, code)
+          const { playlistId, code } = JSON.parse(localStorage.room)
+          return new Room(playlistId, code)
         }
         return null
       })(),
@@ -43,8 +43,7 @@ export default {
           return new AccessToken(token, token_type, expires, state)
         }
         return null
-      })(),
-      playlistId: null
+      })()
     }
   },
   watch: {
@@ -67,9 +66,8 @@ export default {
     onAuthorised: function(accessToken) {
       this.accessToken = accessToken
     },
-    onCreateRoom: function(room, playlistId) {
+    onCreateRoom: function(room) {
       this.room = room
-      this.playlistId = playlistId
     }
   }
 }
