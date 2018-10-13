@@ -55,7 +55,9 @@ export default {
         '?response_type=token' +
         '&client_id=' +
         Constants.CLIENT_ID +
-        (Constants.SCOPES ? '&scope=' + encodeURIComponent(scopes) : '') +
+        (Constants.SCOPES
+          ? '&scope=' + encodeURIComponent(Constants.SCOPES)
+          : '') +
         '&redirect_uri=' +
         encodeURIComponent(Constants.REDIRECT_URI)
       )
