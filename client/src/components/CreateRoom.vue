@@ -23,7 +23,7 @@ export default {
   methods: {
     onCreateRoom: function(playlistId) {
       this.$http
-        .post('http://localhost:5000/create-room', {
+        .post('https://1ddcefc7.ngrok.io/create-room', {
           access_token: this.accessToken.token,
           playlist_id: playlistId
         })
