@@ -2,14 +2,18 @@ from flask import Flask, request, jsonify
 from pprint import pprint
 from handle_messages import handle_add_user, handle_add_song, send_text
 import re
+from state import state
 app = Flask(__name__)
 
-@app.route('/create-room', methods=['GET', 'POST'])
+@app.route('/create-room', methods=['POST'])
 def create_room():
-    """
-    Creates a room in the state
-    """
-    return None
+    print("recieved a request")
+    if request.is_json:
+        key = request.get_json()
+        state["next_room_id"] += 1
+        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": key["auth_key"] }
+        return "create_room: " + str(state["next_room_id"])
+
 
 
 @app.route('/nexmo', methods=['GET', 'POST'])
@@ -37,5 +41,3 @@ def delivery_receipt():
     return None
 
 app.run(port=3000, host="127.0.0.1")
-
-
