@@ -2,7 +2,7 @@
   <div id="app">
     <Header v-bind:room="room"  v-if="accessToken" />
 
-    <Authorise v-on:authorised="onAuthorised" v-if="!accessToken" />
+    <Authorise v-on:authorised="onAuthorised" v-if="!hasValidAccessToken()" />
     <template v-else>
       <ShowRoom v-if="room" v-bind:room="room" />
       <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
@@ -54,6 +54,14 @@ export default {
     }
   },
   methods: {
+    hasValidAccessToken: function() {
+      return (
+        this.accessToken !== null &&
+        this.accessToken.token !== null &&
+        this.accessToken.token !== '' &&
+        !this.accessToken.needsRenewing()
+      )
+    },
     onAuthorised: function(accessToken) {
       this.accessToken = accessToken
     },
