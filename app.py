@@ -11,11 +11,10 @@ spotify = spotipy.Spotify(auth=token)
 # else:
 #     name = 'Sample'
 name = "adele"
-results = spotify.search(q='artist:' + name, type='artist')
-items = results['artists']['items']
-if len(items) > 0:
-    artist = items[0]
-    print (artist['name'], artist['images'][0]['url'])
+results = spotify.search(name, limit=1)
+items = results['tracks']['items'][0]['id']
+
+print (results['tracks']['items'][0])
 
 
 
