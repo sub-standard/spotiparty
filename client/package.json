@@ -16,6 +16,9 @@
     "email": "pav@pavsidhu.com"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.6",
+    "@fortawesome/free-solid-svg-icons": "^5.4.1",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
     "normalize.css": "^7.0.0",
     "object-assign": "^4.1.1",
     "offline-plugin": "^4.8.0",
