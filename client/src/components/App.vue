@@ -2,11 +2,11 @@
   <div id="app">
     <Header v-bind:room="room" />
 
-    <div v-if="accessToken !== null">
-      <ShowRoom v-if="room !== null" v-bind:room="room" />
+    <Authorise v-on:authorised="onAuthorised" v-if="!accessToken" />
+    <template v-else>
+      <ShowRoom v-if="room"  v-bind:room="room" />
       <MakeRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
-    </div>
-      <Authorise v-on:authorised="onAuthorised" v-else />
+    </template>
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">
+    <p class="title">
       <a href="/">SpotiParty</a>
-    </h1>
+    </p>
     
     <p v-if="room">Room Code: {{ room.code }}</p>
   </div>
@@ -20,7 +20,7 @@ export default {
 
 <style scoped>
 .container {
-  padding: 8px 16px;
+  padding: 24px 16px;
   border-bottom: 5px solid black;
   display: flex;
   align-items: center;

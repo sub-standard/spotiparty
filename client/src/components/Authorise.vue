@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <h1 class="title">SpotiParty™️</h1>
+    <p class="description">
+      Queue songs on Spotify with your friends.
+    </p>
+
     <a v-bind:href="url">
       <button class="authorise-button">Sign in with Spotify</button>
     </a>
@@ -57,9 +62,20 @@ export default {
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex: 1;
+}
+
+.title {
+  font-size: 4em;
+  margin: 0 0 24px 0;
+}
+
+.description {
+  font-size: 2.4em;
+  margin: 0 0 80px 0;
 }
 
 .authorise-button {

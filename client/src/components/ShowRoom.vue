@@ -8,11 +8,12 @@
     </div>
     
     <div class="queue-container">
-      <ul>
+      <p class="queue-container-title">Up Next</p>
+      <ol>
         <li>Song 1</li>
         <li>Song 2</li>
         <li>Song 3</li>
-      </ul>
+      </ol>
     </div>
   </div>
 </template>
@@ -65,5 +66,23 @@ export default {
 
 .queue-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.queue-container-title {
+  font-size: 2.4em;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.queue-container ol {
+  list-style-position: inside;
+}
+
+.queue-container ol li {
+  font-size: 2em;
+  margin-bottom: 24px;
 }
 </style>
