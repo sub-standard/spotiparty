@@ -32,7 +32,8 @@ import AccessToken from '../models/AccessToken'
 export default {
   data: () => ({
     track: null,
-    playing: false
+    playing: false,
+    interval: null
   }),
   props: {
     room: Room,
@@ -63,8 +64,6 @@ export default {
           }
         }
       )
-
-      await this.getCurrentData()
     },
     async onPlayPause() {
       const response = await this.$http.put(
@@ -78,7 +77,9 @@ export default {
         }
       )
 
+      this.destroyInterval()
       this.playing = !this.playing
+      setTimeout(this.setupInterval, 1000)
     },
     async onNext() {
       const response = await this.$http.post(
@@ -90,17 +91,22 @@ export default {
           }
         }
       )
-
-      await this.getCurrentData()
+    },
+    setupInterval: function() {
+      this.interval = setInterval(() => {
+        this.getCurrentData()
+      }, 1000)
+    },
+    destroyInterval: function() {
+      clearInterval(this.interval)
+      this.interval = null
     }
   },
   beforeMount: function() {
     this.getCurrentData()
   },
   mounted: function() {
-    window.setInterval(() => {
-      this.getCurrentData()
-    }, 500)
+    this.setupInterval()
   }
 }
 </script>
