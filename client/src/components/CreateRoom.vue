@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import Constants from '../Constants'
 import Room from '../models/Room'
 import AccessToken from '../models/AccessToken'
 
@@ -23,7 +24,7 @@ export default {
   methods: {
     onCreateRoom: async function(playlistId) {
       const response = await this.$http
-        .post('https://eb3267bc.ngrok.io/create-room', {
+        .post(`${Constants.BACKEND_SERVER}/create-room`, {
           access_token: this.accessToken.token,
           playlist_id: playlistId
         })
