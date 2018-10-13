@@ -1,6 +1,6 @@
 <template>
   <div id="make-room">
-    <h1>Make a new Room</h1>
+    <h2>Make a new Room</h2>
 
     <input v-model="title" placeholder="Room title">
 

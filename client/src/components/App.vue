@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <h1>SpotiParty</h1>
+
     <ShowRoom v-if="room !== null" v-bind:room="room" />
     <MakeRoom v-else v-on:create-room="onCreateRoom" />
   </div>
