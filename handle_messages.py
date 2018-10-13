@@ -1,4 +1,6 @@
 from state import state
+import nexmo
+
 
 def handle_add_user(sender, room_number):
     rooms = state['rooms']
@@ -13,5 +15,7 @@ def handle_add_user(sender, room_number):
 def handle_add_song():
     pass
 
+
 def send_text(sender, text):
-    pass
+    client = nexmo.Client('355a63c2', 'vZQnmEP5A8lZhtYE')
+    client.send_message({'from': 'Spotify Player', 'to': sender, 'text': text})
