@@ -22,7 +22,7 @@ export default {
   },
   mounted: function() {
     this.$nextTick(function() {
-      if (this.accessToken !== null && this.accessToken.needsRenewing()) {
+      if (this.accessToken != null && this.accessToken.needsRenewing()) {
         window.location.href = this.url
         return
       }
