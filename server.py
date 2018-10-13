@@ -122,9 +122,8 @@ def handle_leave_room(sender):
 
 app.run(port=3000, host="127.0.0.1")
 
-@app.route('/room-guests', methods=['POST'])
+@app.route('/room-guests/<code>', methods=['POST'])
 @cross_origin
-def request_guests():
+def request_guests(code):
     print("recieved a request")
-    room_id = request.get_json()["code"]
-    return jsonify({'guests': len(state["rooms"][room_id]["phone_numbers"])})
+    return jsonify({'guests': len(state["rooms"][code]["phone_numbers"])})
