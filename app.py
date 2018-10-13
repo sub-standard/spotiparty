@@ -1,20 +1,16 @@
 import requests
 import spotipy
+import pprint
+from spotify import spotify_queuer
+token = "BQBvNJRBoNSPlHBuDDmHbY6joAFt7IhcrJKgaCcfR1MSPNrQgHz2jAkiib5-PRwueWIey8RvaKJv5nmjgI003f-7Wb_W7Y27SPaWqP7utdVM8g5fCaDVVcB71N3iHr0oN9_tlyW669hVvU8fVngu7NQ3UU8dFbIS3O9K_WpBOihb3zSu7kM"
 
-token = "BQDVhemM91QW1DXyFWp65YuwIsEoZLRsD2nmmenkusKznZJwoJ28hQ0JdM0qHBWzNns1ztPbRkzodViZDJYPkYfVIZ-KEqgWYwsgG8jhF2P-LGO4LD_fCPCFzffX5djVaWNihsKczrEw2pK4qpdCyLGtuJJvXjJuMZU0UtSo7AZU1BEDwUs"
 
-spotify = spotipy.Spotify(auth=token)
 
-# req.text = a query string
-# if len(req.text) > 1:
-#     name = ' '.join(req.text[1:])
-# else:
-#     name = 'Sample'
-name = "adele"
-results = spotify.search(name, limit=1)
-items = results['tracks']['items'][0]['id']
+def get_track_id(query,token):
+    spotify = spotipy.Spotify(auth=token)
+    results = spotify.search(name, limit=1)
+    return results['tracks']['items'][0]['id']
 
-print (results['tracks']['items'][0])
 
 
 

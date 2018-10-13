@@ -1,4 +1,5 @@
-from state import state
+from state import state, phones
+from app import get_track_id
 import nexmo
 
 
@@ -12,9 +13,12 @@ def handle_add_user(sender, room_number):
         send_text(sender, "that room does not exist")
 
 
-def handle_add_song():
-    pass
-
+def handle_add_song(song_name,sender):
+    room = phones[sender]
+    token = state[room]["access_token"]
+    queue = state[room]["spotify_queue"]
+    song_id = get_track_id(song_name,token)
+    queue.add_song_to_playlist(song_id)
 
 def send_text(sender, text):
     client = nexmo.Client('355a63c2', 'vZQnmEP5A8lZhtYE')
