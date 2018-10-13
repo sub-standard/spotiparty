@@ -11,7 +11,7 @@ from app import get_track_id
 
 
 # from state import state, phones
-
+MAX_GUESTS = 20
 state = {"next_room_id": 999, "rooms":{}}
 
 phones = {} #key = phone num, val = phone num
@@ -61,13 +61,15 @@ def delivery_receipt():
 
 def handle_add_user(sender, room_number):
     rooms = state['rooms']
-    if room_number in rooms:
+    if room_number not in rooms:
+        send_text(sender, "that room does not exist")
+    elif rooms[phone_numbers] <= MAX_GUESTS:
+        send_text(sender, "max guests reached")
+    else:
         room = rooms[room_number]
         room['phone_numbers'].append(sender) #adds phone number to that room
         phones[sender] = room_number
         send_text(sender, "added to room " + room_number)
-    else:
-        send_text(sender, "that room does not exist")
 
 
 def handle_add_song(song_name,sender):
