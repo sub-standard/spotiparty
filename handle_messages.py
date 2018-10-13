@@ -4,7 +4,7 @@ def handle_add_user(sender, room_number):
     rooms = state['rooms']
     if room_number in rooms:
         room = rooms[room_number]
-        room['phone_number'].append(sender)
+        room['phone_numbers'].append(sender) #adds phone number to that room
         send_text(sender, "added to room " + room_number)
     else:
         send_text(sender, "that room does not exist")

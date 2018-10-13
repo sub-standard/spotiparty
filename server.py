@@ -9,9 +9,9 @@ app = Flask(__name__)
 def create_room():
     print("recieved a request")
     if request.is_json:
-        key = request.get_json()
+        key = request.get_json() #accept spotify access token
         state["next_room_id"] += 1
-        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": key["auth_key"] }
+        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": key["auth_key"] } #create a new room with empty phone numbers
         return "create_room: " + str(state["next_room_id"])
 
 
@@ -23,14 +23,14 @@ def delivery_receipt():
         pprint(request.get_json())
         text_message = request.get_json['text']
         sender = request.get_json['msisdn']
-        if "room" in text_message:
-            room_number = re.search(r"join (\d+)",text_message)
+        if text_message[:4] == "join":
+            room_number = str(re.search(r"join (\d+)",text_message).group(1))
             if room_number == None:
                 send_text("incorect command", sender)
             else:
                 handle_add_user(sender, room_number)
-        elif "add" in text_message:
-            song_query = re.search(r"add (.+)" , text_message)
+        elif text_message[:3] == "add":
+            song_query = re.search(r"^add (.+)$" , text_message).group(1)
             handle_add_song(song_query)
 
     else:
