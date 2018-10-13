@@ -4,8 +4,8 @@ import requests as r
 import spotipy
 import spotipy.util as util
 
-client_id = "2ceb460f532b46ac9e50a3fd7a9db083"
-client_secret = "cdf24df5318d4dca90cada78ac3df7aa"
+# client_id = "2ceb460f532b46ac9e50a3fd7a9db083"
+# client_secret = "cdf24df5318d4dca90cada78ac3df7aa"
 # token = "BQDVhemM91QW1DXyFWp65YuwIsEoZLRsD2nmmenkusKznZJwoJ28hQ0JdM0qHBWzNns1ztPbRkzodViZDJYPkYfVIZ-KEqgWYwsgG8jhF2P-LGO4LD_fCPCFzffX5djVaWNihsKczrEw2pK4qpdCyLGtuJJvXjJuMZU0UtSo7AZU1BEDwUs"
 
 class spotify_queuer:

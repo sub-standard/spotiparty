@@ -5,6 +5,7 @@
 #       "phone-numbers;": ["07123456789", "07123456782"],
 #       "access_token": "1234"
 #       "queue" : spotifyqueue
+#       "skip_count" : 0
 #     },
 #     "1001": {
 #       "phone-numbers": ["07123456789", "07123456782"],
