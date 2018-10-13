@@ -21,27 +21,19 @@ export default {
     playlists: null
   }),
   methods: {
-    onCreateRoom: function(playlistId) {
-      this.$http
-        .post('http://localhost:5000/create-room', {
+    onCreateRoom: async function(playlistId) {
+      const response = await this.$http.post(
+        'http://1ddcefc7.ngrok.io/create-room',
+        {
           access_token: this.accessToken.token,
           playlist_id: playlistId
-        })
-        .then(
-          response => {
-            const code = response.data
-            const room = new Room(this.title, code)
+        }
+      )
 
-            this.$emit('create-room', room)
-          },
-          response => {
-            // Error
-            // TODO don't make fake code
-            const room = new Room(this.title, '0000')
+      const { code } = response.data
+      const room = new Room(this.title, code)
 
-            this.$emit('create-room', room)
-          }
-        )
+      this.$emit('create-room', room)
     }
   },
   beforeMount: async function() {
