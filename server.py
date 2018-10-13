@@ -32,7 +32,7 @@ def create_room():
         print(req_json)
         userid = r.get("https://api.spotify.com/v1/me", headers={"Authorization": "Bearer " + req_json["access_token"]}).json()["id"]
         state["next_room_id"] += 1
-        state["rooms"][str(state["next_room_id"] )] = {"phone_numbers": [], "access_token": req_json["access_token"],"userid": userid, "playlist_id": req_json["playlist_id"], "spotify_queue": spotify_queuer(userid,req_json["access_token"],req_json["playlist_id"])} #create a new room with empty phone numbers
+        state["rooms"][str(state["next_room_id"] )] = {"skip_song": [],"phone_numbers": [], "access_token": req_json["access_token"],"userid": userid, "playlist_id": req_json["playlist_id"], "spotify_queue": spotify_queuer(userid,req_json["access_token"],req_json["playlist_id"])} #create a new room with empty phone numbers
         print(state)
         return jsonify({'code': str(state["next_room_id"])})
 
@@ -54,10 +54,13 @@ def delivery_receipt():
     elif text_message[:3] == "add":
         song_query = re.search(r"^add (.+)$" , text_message).group(1) #extract song to add to playlsist from text message
         handle_add_song(song_query, sender)
-
-
+    elif text_message == "skip":
+        handle_skip_song(sender)
 
     return str(200)
+
+
+
 
 def handle_add_user(sender, room_number):
     rooms = state['rooms']
@@ -81,16 +84,31 @@ def handle_add_song(song_name,sender):
     token = state["rooms"][room]["access_token"]
     queue = state["rooms"][room]["spotify_queue"]
     song_id = get_track_id(song_name,token)
-    queue.add_song_to_playlist(song_id)
+    if song_id is None:
+        send_text(sender, "sorry I cannot find that song")
+    else:
+        queue.add_song_to_playlist(song_id)
 
 def send_text(sender, text):
     client = nexmo.Client('355a63c2', 'vZQnmEP5A8lZhtYE')
     client.send_message({'from': 'Spotify Player', 'to': sender, 'text': text})
 
+
+
 def handle_skip_song(sender):
+    if not( sender in phones):
+        return
     room = phones[sender]
-    token = state[room]["access_token"]
-    queue = state[room]["spotify_queue"]
+    phones_in_room = state['rooms'][room]["phone_numbers"]
+    token = state['rooms'][room]["access_token"]
+    queue = state['rooms'][room]["spotify_queue"]
+    skippers = state['rooms'][room]["skip_song"]
+    if not(sender in skippers):
+        skippers.append(sender)
+    if(len(sender) / len(phones_in_room)) > 0.4:
+        queue.skip_track()
+
+
 
 
 def handle_leave_room(sender):
