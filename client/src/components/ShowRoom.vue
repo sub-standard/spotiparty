@@ -1,33 +1,39 @@
 <template>
   <div class="container">
-    <div class="playback-container">
-      <template v-if="track">
-        <div class="playback-info">
-          <img class="playback-info-art" v-bind:src="track.album.images[0].url" />
-          <div class="playback-info-song">{{ track.name + ' - ' + track.artists[0].name }}</div>
+    <div class="contents">
+      <div class="playback-container">
+        <template v-if="track">
+          <div class="playback-info">
+            <img class="playback-info-art" v-bind:src="track.album.images[0].url" />
+            <div class="playback-info-song">{{ track.name + ' - ' + track.artists[0].name }}</div>
+          </div>
+        </template>
+        <div class="playback-controls">
+          <button class="playback-button" v-on:click="onPrevious">
+            <font-awesome-icon icon="backward" />
+          </button>
+          <button class="playback-button" v-on:click="onPlayPause">
+            <font-awesome-icon v-bind:icon="playing ? 'pause' : 'play'" />
+          </button>
+          <button class="playback-button" v-on:click="onNext">
+            <font-awesome-icon icon="forward" />
+          </button>
         </div>
-      </template>
-      <div class="playback-controls">
-        <button class="playback-button" v-on:click="onPrevious">
-          <font-awesome-icon icon="backward" />
-        </button>
-        <button class="playback-button" v-on:click="onPlayPause">
-          <font-awesome-icon v-bind:icon="playing ? 'pause' : 'play'" />
-        </button>
-        <button class="playback-button" v-on:click="onNext">
-          <font-awesome-icon icon="forward" />
-        </button>
       </div>
-    </div>
 
-    <div class="queue-container">
-      <p class="queue-container-title">{{ playlistTitle }}</p>
-      <ol>
-        <li v-for="t in tracks" v-bind:key="t.id">
-          <span class="track-name">{{ t.name }}</span>
-          <span v-if="t.artists.length > 0" class="track-artist">{{ t.artists[0].name }}</span>
-        </li>
-      </ol>
+      <div class="commands-container">
+        <p>Join</p>
+      </div>
+
+      <div class="queue-container">
+        <p class="queue-container-title">{{ playlistTitle }}</p>
+        <ol>
+          <li v-for="t in tracks" v-bind:key="t.id">
+            <span class="track-name">{{ t.name }}</span>
+            <span v-if="t.artists.length > 0" class="track-artist">{{ t.artists[0].name }}</span>
+          </li>
+        </ol>
+      </div>
     </div>
   </div>
 </template>
@@ -151,16 +157,25 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  justify-content: center;
-  padding: 32px;
   flex: 1;
+  display: flex;
+  padding: 32px;
+}
+
+.contents {
+  flex: 1;
+  display: grid;
+  grid-gap: 32px;
+  grid-template-areas:
+    'playback commands'
+    'playback playlist';
 }
 
 .playback-container {
   display: flex;
   flex-direction: column;
   width: 400px;
+  grid-area: playback;
 }
 
 .playback-info-art {
@@ -206,17 +221,20 @@ export default {
   border-right: 5px solid black;
 }
 
+.commands-container {
+  grid-area: 'commands';
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+}
+
 .queue-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   box-shadow: 10px 10px 0 0 black;
   border: 5px solid black;
   padding: 32px;
-  margin: 0 10px 0 32px;
   overflow: scroll;
-  max-height: 80vh;
 }
 
 .queue-container-title {

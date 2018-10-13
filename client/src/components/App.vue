@@ -91,6 +91,7 @@ a {
 
 #app {
   min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
 }
