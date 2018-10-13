@@ -4,7 +4,7 @@
       <template v-if="track">
         <div class="playback-info">
           <img class="playback-info-art" v-bind:src="track.album.images[0].url" />
-          <div class="playback-info-song">{{track.name + ' - ' + track.artists[0].name }}</div>
+          <div class="playback-info-song">{{ track.name + ' - ' + track.artists[0].name }}</div>
         </div>
       </template>
       <div class="playback-controls">
@@ -23,9 +23,10 @@
     <div class="queue-container">
       <p class="queue-container-title">{{ playlistTitle }}</p>
       <ol>
-        <li>Song 1</li>
-        <li>Song 2</li>
-        <li>Song 3</li>
+        <li v-for="t in tracks" v-bind:key="t.id">
+          <span class="track-name">{{ t.name }}</span>
+          <span v-if="t.artists.length > 0" class="track-artist">{{ t.artists[0].name }}</span>
+        </li>
       </ol>
     </div>
   </div>
@@ -38,6 +39,7 @@ import AccessToken from '../models/AccessToken'
 export default {
   data: () => ({
     track: null,
+    tracks: null,
     playing: false,
     interval: null,
     playlistTitle: null
@@ -59,7 +61,7 @@ export default {
 
       this.playlistTitle = response.data.name
     },
-    async getCurrentData() {
+    async getPlaybackState() {
       const response = await this.$http.get(
         'https://api.spotify.com/v1/me/player/currently-playing',
         {
@@ -71,6 +73,22 @@ export default {
 
       this.track = response.data.item
       this.playing = response.data.is_playing
+    },
+    async getPlaylistContents() {
+      console.log('hey')
+      const response = await this.$http.get(
+        `https://api.spotify.com/v1/playlists/${this.room.playlistId}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
+
+      this.tracks = response.data.tracks.items.map(item => item.track)
+    },
+    async getCurrentData() {
+      this.getPlaybackState()
     },
     async onPrevious() {
       const response = await this.$http.post(
@@ -141,6 +159,7 @@ export default {
     this.startPlaylist()
     this.setupInterval()
     this.getPlaylistName()
+    this.getPlaylistContents()
   }
 }
 </script>
@@ -223,7 +242,17 @@ export default {
 }
 
 .queue-container ol li {
-  font-size: 2em;
+  font-size: 1rem;
   margin-bottom: 24px;
+}
+
+.queue-container ol li .track-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.queue-container ol li .track-artist {
+  font-size: 1rem;
+  margin-left: 0.2rem;
 }
 </style>
