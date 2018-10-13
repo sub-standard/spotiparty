@@ -31,7 +31,7 @@ export default {
         const accessToken = new AccessToken(
           access_token,
           token_type,
-          Date().now() + expires_in * 100,
+          Date.now() + expires_in * 100,
           state
         )
 
