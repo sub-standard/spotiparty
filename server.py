@@ -60,13 +60,22 @@ def delivery_receipt():
     return str(200)
 
 
+@app.route('/room-guests', methods=['GET'])
+@cross_origin()
+def request_guests():
+    print("recieved a request")
+    if request.get_json() == None:
+        return str(200)
+    room_id = request.get_json()["code"]
+
+    return jsonify({'guests': len(state["rooms"][room_id]["phone_numbers"])})
 
 
 def handle_add_user(sender, room_number):
     rooms = state['rooms']
     if room_number not in rooms:
         send_text(sender, "that room does not exist")
-    elif rooms[phone_numbers] <= MAX_GUESTS:
+    elif len(rooms[room_number]['phone_numbers']) >= MAX_GUESTS:
         send_text(sender, "max guests reached")
     else:
         room = rooms[room_number]
@@ -111,9 +120,3 @@ def handle_skip_song(sender):
 
 app.run(port=3000, host="127.0.0.1")
 
-@app.route('/room-guests', methods=['POST'])
-@cross_origin
-def request_guests():
-    print("recieved a request")
-    room_id = request.get_json()["code"]
-    return jsonify({'guests': len(state["rooms"][room_id]["phone_numbers"])})
