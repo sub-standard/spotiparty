@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="playlists-container">
-      <li v-for="playlist in playlists" :key="playlist.id">
+      <li v-for="playlist in playlists" :key="playlist.id" @click="() => onCreateRoom(playlist.id)">
         <img v-bind:src="playlist.images[0].url" v-bind:alt="playlist.name" />
         <p>{{ playlist.name }}</p>
       </li>
@@ -21,10 +21,11 @@ export default {
     playlists: null
   }),
   methods: {
-    onCreateRoom: function() {
+    onCreateRoom: function(playlistId) {
       this.$http
         .post('http://localhost:5000/create-room', {
-          access_token: this.accessToken.token
+          access_token: this.accessToken.token,
+          playlist_id: playlistId
         })
         .then(
           response => {
