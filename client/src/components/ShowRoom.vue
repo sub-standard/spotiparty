@@ -5,9 +5,11 @@
 </template>
 
 <script>
+import Room from '../models/Room'
+
 export default {
   props: {
-    room: Object
+    room: Room
   }
 }
 </script>

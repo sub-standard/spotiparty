@@ -10,6 +10,7 @@
 <script>
 import MakeRoom from './MakeRoom'
 import ShowRoom from './ShowRoom'
+import Room from '../models/Room'
 
 export default {
   name: 'app',
@@ -25,12 +26,9 @@ export default {
   methods: {
     onCreateRoom: function(title) {
       // TODO get room id from server
-      code = 1234
+      const code = 1234
 
-      this.room = {
-        title,
-        code
-      }
+      this.room = new Room(title, code)
     }
   }
 }
