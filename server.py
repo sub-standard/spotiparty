@@ -30,7 +30,7 @@ def delivery_receipt():
         sender = request.get_json['msisdn'] #sender phone number
         if text_message[:4] == "join":
             room_number = str(re.search(r"join (\d+)",text_message).group(1)) #extract room number to join from text message
-            if room_number == None:
+            if room_number is None:
                 send_text("incorect command", sender)
             else:
                 handle_add_user(sender, room_number)
@@ -41,7 +41,6 @@ def delivery_receipt():
     else:
         data = dict(request.form) or dict(request.args)
         pprint(data)
-
 
     return None
 
