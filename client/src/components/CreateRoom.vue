@@ -22,13 +22,15 @@ export default {
   }),
   methods: {
     onCreateRoom: async function(playlistId) {
-      const response = await this.$http.post(
-        'https://1ddcefc7.ngrok.io/create-room',
-        {
+      const response = await this.$http
+        .post('https://1ddcefc7.ngrok.io/create-room', {
           access_token: this.accessToken.token,
           playlist_id: playlistId
-        }
-      )
+        })
+        .catch(() => {
+          const room = new Room(this.title, '0000')
+          this.$emit('create-room', room, playlistId)
+        })
 
       const { code } = response.data
       const room = new Room(this.title, code)

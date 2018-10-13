@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="playback-container">
-      <template v-if="this.track">
+      <template v-if="track">
         <div class="playback-info">
-          <img class="playback-info-art" v-bind:src="this.track.album.images[0].url" />
-          <div class="playback-info-song">{{this.track.name + ' - ' + this.track.artists[0].name }}</div>
+          <img class="playback-info-art" v-bind:src="track.album.images[0].url" />
+          <div class="playback-info-song">{{track.name + ' - ' + track.artists[0].name }}</div>
         </div>
       </template>
       <div class="playback-controls">
@@ -100,7 +100,7 @@ export default {
   mounted: function() {
     window.setInterval(() => {
       this.getCurrentData()
-    }, 1000)
+    }, 500)
   }
 }
 </script>
