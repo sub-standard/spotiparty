@@ -6,10 +6,14 @@ from state import state
 app = Flask(__name__)
 
 @app.route('/create-room', methods=['POST'])
-def create_room(auth_key):
-    state["next_room_id"] += 1
-    state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": auth_key }
-    return "create_room"
+def create_room():
+    print("recieved a request")
+    if request.is_json:
+        key = request.get_json()
+        state["next_room_id"] += 1
+        state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": key["auth_key"] }
+        return "create_room: " + str(state["next_room_id"])
+
 
 
 @app.route('/nexmo', methods=['GET', 'POST'])

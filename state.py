@@ -1,6 +1,7 @@
 # EXAMPLE STATE
 # state = {
 #   "rooms": {
+
 #     "1000": {
 #       "phone-numbers;": ["07123456789", "07123456782"],
 #       "access_token": "1234"
@@ -12,4 +13,4 @@
 #   }
 # }
 
-state = {}
+state = {"next_room_id": 999, "rooms":{}}
