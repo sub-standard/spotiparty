@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ room.title }}</h2>
+    <h2>{{ room.code }} {{ room.title }}</h2>
   </div>
 </template>
 
