@@ -1,15 +1,17 @@
 from flask import Flask, request, jsonify
 from pprint import pprint
-from nexmo import handle_join, handle_add_song
+from handle_messages import handle_add_user, handle_add_song
+from state import state
+
+print(state)
 
 app = Flask(__name__)
 
-@app.route('/create-room', methods=['GET', 'POST'])
-def create_room():
-    """
-    Creates a room in the state
-    """
-    return None
+@app.route('/create-room', methods=['POST'])
+def create_room(auth_key):
+    state["next_room_id"] += 1
+    state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": auth_key }
+    return "create_room"
 
 
 @app.route('/nexmo', methods=['GET', 'POST'])
@@ -23,5 +25,3 @@ def delivery_receipt():
     return None
 
 app.run(port=3000, host="127.0.0.1")
-
-

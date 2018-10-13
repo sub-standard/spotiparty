@@ -13,10 +13,3 @@
 # }
 
 state = {}
-
-def update_state(new_state):
-  state = new_state
-
-def get_state():
-  return state
-
