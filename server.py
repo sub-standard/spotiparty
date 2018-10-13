@@ -90,3 +90,10 @@ def handle_skip_song(sender):
 
 
 app.run(port=3000, host="127.0.0.1")
+
+@app.route('/room-guests', methods=['POST'])
+@cross_origin
+def request_guests():
+    print("recieved a request")
+    room_id = request.get_json()["code"]
+    return jsonify({'guests': len(state["rooms"][room_id]["phone_numbers"])})
