@@ -12,8 +12,12 @@
 
 <script>
 import Room from '../models/Room'
+import AccessToken from '../models/AccessToken'
 
 export default {
+  props: {
+    accessToken: AccessToken
+  },
   data: function() {
     return {
       title: ''
@@ -21,12 +25,21 @@ export default {
   },
   methods: {
     onCreateRoom: function() {
-      // TODO get room id from server
-      const code = 1234
+      this.$http
+        .post('http://localhost:5000/create-room', {
+          access_token: this.accessToken.token
+        })
+        .then(
+          response => {
+            const code = response.data
+            const room = new Room(this.title, this.code)
 
-      const room = new Room(this.title, code)
-
-      this.$emit('create-room', room)
+            this.$emit('create-room', room)
+          },
+          response => {
+            // Error
+          }
+        )
     }
   }
 }

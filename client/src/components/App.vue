@@ -4,7 +4,7 @@
 
     <div v-if="accessToken !== null">
       <ShowRoom v-if="room !== null" v-bind:room="room" />
-      <MakeRoom v-else v-on:create-room="onCreateRoom" />
+      <MakeRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
     </div>
     <div v-else>
       <Authorise v-on:authorised="onAuthorised" />

@@ -21,6 +21,7 @@
     "offline-plugin": "^4.8.0",
     "promise-polyfill": "^6.0.2",
     "query-string": "^6.2.0",
+    "vue-resource": "^1.5.1",
     "vue-styled-components": "^1.4.0"
   },
   "devDependencies": {
