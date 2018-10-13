@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <a v-bind:href="url">Authorise Spotify</a>
+  <div class="container">
+    <a v-bind:href="url">
+      <button class="authorise-button">Sign in with Spotify</button>
+    </a>
   </div>
 </template>
 
@@ -15,8 +17,6 @@ export default {
       const { access_token, token_type, expires_in, state } = queryString.parse(
         location.hash
       )
-
-      console.log(access_token)
 
       if (
         access_token !== null &&
@@ -53,3 +53,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.authorise-button {
+  border: 5px solid black;
+  background: #1db954;
+  color: white;
+  padding: 16px;
+  cursor: pointer;
+  font-size: 2em;
+}
+</style>

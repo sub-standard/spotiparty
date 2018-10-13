@@ -6,9 +6,7 @@
       <ShowRoom v-if="room !== null" v-bind:room="room" />
       <MakeRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
     </div>
-    <div v-else>
-      <Authorise v-on:authorised="onAuthorised" />
-    </div>
+      <Authorise v-on:authorised="onAuthorised" v-else />
   </div>
 </template>
 
