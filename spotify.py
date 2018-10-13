@@ -25,13 +25,14 @@ class spotify_queuer:
         print(results)
 
     def skip_track(self):
-        devices = r.get("https://api.spotify.com/v1/me/player/devices", json={"Authorization":self.token + })
+        devices = r.get("https://api.spotify.com/v1/me/player/devices", json={"Authorization":self.token })
+        print(devices)
         device_id = devices["devices"][0]["id"]
         sp = spotipy.Spotify(auth=token)
         sp.next_track(device_id)
 
-# token = "BQCnojeJEjIamhYH3naNwnjB7DrKPkivFpEyAoCAyNFivS5GvZaOUWU7eaXloJD5eLZXlRtbH8fZtIg6Age8RgGpNyLcxTYZAWhyc--4m-zXOaOkgCan7R2bNLSVayDdeuZsisA4CGtM06DJIb6mDjeHshf1bvOM1NVYqHHcW-a8JrQzh_0"
+token = "BQBvNJRBoNSPlHBuDDmHbY6joAFt7IhcrJKgaCcfR1MSPNrQgHz2jAkiib5-PRwueWIey8RvaKJv5nmjgI003f-7Wb_W7Y27SPaWqP7utdVM8g5fCaDVVcB71N3iHr0oN9_tlyW669hVvU8fVngu7NQ3UU8dFbIS3O9K_WpBOihb3zSu7kM"
 # pp = pprint.PrettyPrinter(indent=4)
 # # pp.pprint(sp.current_user_playlists())
-# me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
-# me.skip_track()
+me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
+me.skip_track()
