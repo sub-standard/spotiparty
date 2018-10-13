@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>SpotiParty</h1>
+    <Header v-bind:room="room" />
 
     <div v-if="accessToken !== null">
       <ShowRoom v-if="room !== null" v-bind:room="room" />
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import Header from './Header'
 import MakeRoom from './MakeRoom'
 import ShowRoom from './ShowRoom'
 import Authorise from './Authorise'
@@ -20,6 +21,7 @@ import Authorise from './Authorise'
 export default {
   name: 'app',
   components: {
+    Header,
     MakeRoom,
     ShowRoom,
     Authorise
@@ -52,9 +54,21 @@ export default {
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   font-size: 62.5%;
+  background-color: #fefefe;
 }
 </style>

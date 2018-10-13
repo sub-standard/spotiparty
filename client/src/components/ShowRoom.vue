@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <h2>{{ room.code }} {{ room.title }}</h2>
+  <div class="container">
+    <div class="playback-container">
+      <div class="playback-info">
+        <img class="playback-info-art" src="https://i.pinimg.com/474x/25/12/28/2512289ea977440827a012d64ebda89e--night-vision-my-music.jpg" />
+        <div class="playback-info-song">Demons - Imagine Dragons</div>
+      </div>
+    </div>
+    
+    <div class="queue-container">
+      <ul>
+        <li>Song 1</li>
+        <li>Song 2</li>
+        <li>Song 3</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -13,3 +26,44 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  flex: 1;
+}
+
+.playback-container {
+  flex: 1;
+  margin-right: 32px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.playback-info {
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+}
+
+.playback-info-art {
+  width: 100%;
+}
+
+.playback-info-song {
+  border-top: 5px solid black;
+  background: #1db954;
+  color: white;
+  font-size: 2em;
+  padding: 16px;
+}
+
+.queue-container {
+  flex: 1;
+}
+</style>

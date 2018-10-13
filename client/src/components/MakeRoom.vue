@@ -1,12 +1,9 @@
 <template>
-  <div id="make-room">
-    <h2>Make a new Room</h2>
-
-    <input v-model="title" placeholder="Room title">
-
-    <button v-on:click="onCreateRoom">
-      Create room
-    </button>
+  <div class="container">
+    <form v-on:submit="e => {e.preventDefault(); onCreateRoom()}">
+      <input v-model="title" placeholder="Room title"/>
+      <button>Create a room</button>
+    </form>
   </div>
 </template>
 
@@ -44,3 +41,40 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+form {
+  display: flex;
+  font-size: 2em;
+  width: 500px;
+  box-shadow: 10px 10px 0 0 black;
+}
+
+input {
+  flex: 1;
+  border: none;
+  border: 5px solid black;
+  padding: 0 16px;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: 5px solid black;
+  border-left: none;
+  background: #1db954;
+  color: white;
+  padding: 16px;
+  cursor: pointer;
+}
+</style>
+
