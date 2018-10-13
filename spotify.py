@@ -4,8 +4,15 @@ import requests as r
 import spotipy
 import spotipy.util as util
 
-client_id = "2ceb460f532b46ac9e50a3fd7a9db083"
-client_secret = "cdf24df5318d4dca90cada78ac3df7aa"
+with open("client_id.txt", r) as f):
+    client_id = f.read()
+
+with open("client_secret.txt", r) as f):
+    client_secret = f.read()
+
+with open("token", r) as f):
+    token = f.read()
+
 # token = "BQDVhemM91QW1DXyFWp65YuwIsEoZLRsD2nmmenkusKznZJwoJ28hQ0JdM0qHBWzNns1ztPbRkzodViZDJYPkYfVIZ-KEqgWYwsgG8jhF2P-LGO4LD_fCPCFzffX5djVaWNihsKczrEw2pK4qpdCyLGtuJJvXjJuMZU0UtSo7AZU1BEDwUs"
 
 class spotify_queuer:
@@ -31,7 +38,6 @@ class spotify_queuer:
         sp = spotipy.Spotify(auth=token)
         sp.next_track(device_id)
 
-token = "BQBvNJRBoNSPlHBuDDmHbY6joAFt7IhcrJKgaCcfR1MSPNrQgHz2jAkiib5-PRwueWIey8RvaKJv5nmjgI003f-7Wb_W7Y27SPaWqP7utdVM8g5fCaDVVcB71N3iHr0oN9_tlyW669hVvU8fVngu7NQ3UU8dFbIS3O9K_WpBOihb3zSu7kM"
 # pp = pprint.PrettyPrinter(indent=4)
 # # pp.pprint(sp.current_user_playlists())
 me = spotify_queuer("jordanmussi",token,"6OdNS5du8uvvQ8JmLhhxHy")
