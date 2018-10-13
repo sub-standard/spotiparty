@@ -3,7 +3,10 @@ from pprint import pprint
 from handle_messages import handle_add_user, handle_add_song, send_text
 import re
 from state import state
+import requests
+
 app = Flask(__name__)
+rooms = state["rooms"]
 
 @app.route('/create-room', methods=['POST'])
 def create_room():
@@ -12,7 +15,7 @@ def create_room():
         key = request.get_json() #accept spotify access token
         state["next_room_id"] += 1
         state["rooms"][str(state["next_room_id"] )] = {"phone-numbers": [], "access_token": key["auth_key"] } #create a new room with empty phone numbers
-        return "create_room: " + str(state["next_room_id"])
+        return str(state["next_room_id"])
 
 
 
@@ -39,5 +42,7 @@ def delivery_receipt():
 
 
     return None
+
+
 
 app.run(port=3000, host="127.0.0.1")
