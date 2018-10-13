@@ -6,15 +6,15 @@ import spotipy
 import requests as r
 import re
 from flask_cors import CORS, cross_origin
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 from state import state
-import requests
+
 
 app = Flask(__name__)
 rooms = state["rooms"]
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 
@@ -33,7 +33,8 @@ def create_room():
 
 
 
-@app.route('/nexmo', methods=['GET'])
+@app.route('/webhooks/nexmo', methods=['GET','POST'])
+@cross_origin()
 def delivery_receipt():
     print("recieved a request")
     if request.is_json:
@@ -55,7 +56,7 @@ def delivery_receipt():
         data = dict(request.form) or dict(request.args)
         pprint(data)
 
-    return None
+    return 200
 
 
 
