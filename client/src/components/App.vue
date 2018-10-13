@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <ShowRoom v-if="room !== null" />
-    <MakeRoom v-else />
+    <ShowRoom v-if="room !== null" v-bind:room="room" />
+    <MakeRoom v-else v-on:create-room="onCreateRoom" />
   </div>
 </template>
 
@@ -18,6 +18,14 @@ export default {
   data: function() {
     return {
       room: null
+    }
+  },
+  methods: {
+    onCreateRoom: function(roomTitle) {
+      // TODO get room id from server
+      this.room = {
+        title: roomTitle
+      }
     }
   }
 }
