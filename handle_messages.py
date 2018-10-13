@@ -6,6 +6,8 @@ def handle_add_user(sender, room_number):
         room = rooms[room_number]
         room['phone_number'].append(sender)
         send_text(sender, "added to room " + room_number)
+    else:
+        send_text(sender, "that room does not exist")
 
 
 def handle_add_song():
@@ -13,5 +15,5 @@ def handle_add_song():
 
 
 
-def send_text():
+def send_text(sender, text):
     pass
