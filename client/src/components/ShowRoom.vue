@@ -167,14 +167,27 @@ export default {
   display: grid;
   grid-gap: 32px;
   grid-template-areas:
-    'playback commands'
-    'playback playlist';
+    'playback'
+    'commands'
+    'playlist';
+}
+
+@media screen and (min-width: 400px) {
+  .contents {
+    grid-template-areas:
+      'playback commands'
+      'playback playlist';
+    grid-template-columns: 400px auto;
+  }
+
+  .queue-container {
+    overflow: scroll;
+  }
 }
 
 .playback-container {
   display: flex;
   flex-direction: column;
-  width: 400px;
   grid-area: playback;
 }
 
@@ -234,7 +247,6 @@ export default {
   box-shadow: 10px 10px 0 0 black;
   border: 5px solid black;
   padding: 32px;
-  overflow: scroll;
 }
 
 .queue-container-title {
