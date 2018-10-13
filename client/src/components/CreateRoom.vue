@@ -33,7 +33,7 @@ export default {
       const { code } = response.data
       const room = new Room(this.title, code)
 
-      this.$emit('create-room', room)
+      this.$emit('create-room', room, playlistId)
     }
   },
   beforeMount: async function() {

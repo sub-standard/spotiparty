@@ -10,7 +10,7 @@
     </div>
     
     <div class="queue-container">
-      <p class="queue-container-title">Up Next</p>
+      <p class="queue-container-title">Playlist</p>
       <ol>
         <li>Song 1</li>
         <li>Song 2</li>
@@ -30,7 +30,8 @@ export default {
   }),
   props: {
     room: Room,
-    accessToken: AccessToken
+    accessToken: AccessToken,
+    playlistId: null
   },
   methods: {
     async getCurrentData() {
@@ -48,6 +49,11 @@ export default {
   },
   beforeMount: function() {
     this.getCurrentData()
+  },
+  mounted: function() {
+    window.setInterval(() => {
+      this.getCurrentData()
+    }, 1000)
   }
 }
 </script>
@@ -63,12 +69,13 @@ export default {
 .playback-container {
   display: flex;
   flex-direction: column;
+  width: 400px;
 }
 
 .playback-info-art {
+  width: 100%;
   box-shadow: 10px 10px 0 0 black;
   border: 5px solid black;
-  width: 100%;
   margin-bottom: 16px;
 }
 

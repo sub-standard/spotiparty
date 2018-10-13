@@ -4,7 +4,7 @@
 
     <Authorise v-if="!hasValidAccessToken()" v-on:authorised="onAuthorised" v-bind:accessToken="accessToken" />
     <template v-else>
-      <ShowRoom v-if="room" v-bind:room="room"  v-bind:accessToken="accessToken" />
+      <ShowRoom v-if="room" v-bind:room="room"  v-bind:accessToken="accessToken" v-bind:playlistId="playlistId" />
       <CreateRoom v-else v-on:create-room="onCreateRoom" v-bind:accessToken="accessToken" />
     </template>
   </div>
@@ -44,7 +44,7 @@ export default {
         }
         return null
       })(),
-      userId: null
+      playlistId: null
     }
   },
   watch: {
@@ -67,8 +67,9 @@ export default {
     onAuthorised: function(accessToken) {
       this.accessToken = accessToken
     },
-    onCreateRoom: function(room) {
+    onCreateRoom: function(room, playlistId) {
       this.room = room
+      this.playlistId = playlistId
     }
   }
 }
