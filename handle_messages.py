@@ -13,7 +13,5 @@ def handle_add_user(sender, room_number):
 def handle_add_song():
     pass
 
-
-
 def send_text(sender, text):
     pass
