@@ -75,7 +75,6 @@ export default {
       this.playing = response.data.is_playing
     },
     async getPlaylistContents() {
-      console.log('hey')
       const response = await this.$http.get(
         `https://api.spotify.com/v1/playlists/${this.room.playlistId}`,
         {
@@ -215,6 +214,8 @@ export default {
   border: 5px solid black;
   padding: 32px;
   margin: 0 10px 0 32px;
+  overflow: scroll;
+  max-height: 80vh;
 }
 
 .queue-container-title {
@@ -230,6 +231,10 @@ export default {
 .queue-container ol li {
   font-size: 1rem;
   margin-bottom: 24px;
+}
+
+.queue-container ol li:last-child {
+  margin-bottom: 0;
 }
 
 .queue-container ol li .track-name {
