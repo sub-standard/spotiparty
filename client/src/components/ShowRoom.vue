@@ -119,12 +119,26 @@ export default {
     destroyInterval: function() {
       clearInterval(this.interval)
       this.interval = null
+    },
+    async startPlaylist() {
+      const response = await this.$http.put(
+        'https://api.spotify.com/v1/me/player/play',
+        {
+          context_uri: 'spotify:playlist:' + this.room.playlistId
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.accessToken.token
+          }
+        }
+      )
     }
   },
   beforeMount: function() {
     this.getCurrentData()
   },
   mounted: function() {
+    this.startPlaylist()
     this.setupInterval()
     this.getPlaylistName()
   }
