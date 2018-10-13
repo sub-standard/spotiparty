@@ -12,7 +12,7 @@
           <font-awesome-icon icon="backward" />
         </button>
         <button class="playback-button" v-on:click="onPlayPause">
-          <font-awesome-icon v-bind:icon="playing ? 'play' : 'pause'" />
+          <font-awesome-icon v-bind:icon="playing ? 'pause' : 'play'" />
         </button>
         <button class="playback-button" v-on:click="onNext">
           <font-awesome-icon icon="forward" />
@@ -98,7 +98,7 @@ export default {
 
       this.destroyInterval()
       this.playing = !this.playing
-      setTimeout(this.setupInterval, 1000)
+      setTimeout(this.setupInterval, 500)
     },
     async onNext() {
       const response = await this.$http.post(
@@ -114,7 +114,7 @@ export default {
     setupInterval: function() {
       this.interval = setInterval(() => {
         this.getCurrentData()
-      }, 1000)
+      }, 500)
     },
     destroyInterval: function() {
       clearInterval(this.interval)
