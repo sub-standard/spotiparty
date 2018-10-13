@@ -16,7 +16,6 @@
 import MakeRoom from './MakeRoom'
 import ShowRoom from './ShowRoom'
 import Authorise from './Authorise'
-import Room from '../models/Room'
 
 export default {
   name: 'app',
@@ -35,11 +34,8 @@ export default {
     onAuthorised: function(accessToken) {
       this.accessToken = accessToken
     },
-    onCreateRoom: function(title) {
-      // TODO get room id from server
-      const code = 1234
-
-      this.room = new Room(title, code)
+    onCreateRoom: function(room) {
+      this.room = room
     }
   }
 }
