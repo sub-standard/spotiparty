@@ -20,14 +20,14 @@ export default {
 
 <style scoped>
 .container {
-  padding: 24px 16px;
+  padding: 24px;
   border-bottom: 5px solid black;
   display: flex;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  background: #1db954;
-  color: white;
+  background: #3ad772;
+  color: black;
 }
 
 .title {

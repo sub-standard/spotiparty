@@ -91,10 +91,11 @@ export default {
 .authorise-button {
   border: 5px solid black;
   box-shadow: 10px 10px 0 0 black;
-  background: #1db954;
-  color: white;
+  background: #3ad772;
+  color: black;
   padding: 16px;
   cursor: pointer;
   font-size: 2em;
+  font-weight: bold;
 }
 </style>
