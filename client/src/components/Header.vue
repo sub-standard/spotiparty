@@ -4,10 +4,7 @@
       <a href="/">SpotiParty</a>
     </p>
 
-    <template v-if="room">
-      <p>Room Code: {{ room.code }}{{ guestsString }}</p>
-      <p class="sign-out" @click="signOut">Sign out</p>
-    </template>
+    <p class="sign-out" @click="signOut">Sign out</p>
   </div>
 </template>
 
@@ -23,16 +20,6 @@ export default {
       localStorage.clear()
       location.reload()
     }
-  },
-  computed: {
-    guestsString: function() {
-      const guests = this.room.guests
-      if (guests > 0) {
-        return guests == 1 ? ' (1 guest)' : ` (${guests} guests)`
-      }
-
-      return ''
-    }
   }
 }
 </script>
@@ -47,6 +34,7 @@ export default {
   font-weight: bold;
   background: #3ad772;
   color: black;
+  transition: all 100ms;
 }
 
 .title {

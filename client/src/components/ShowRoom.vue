@@ -20,15 +20,30 @@
           </button>
         </div>
       </div>
-
+        
       <div class="commands-container">
-        <p>Text {{ phoneNo }} and text a command. You must join the room to issue ADD and SKIP commands.</p>
-        <ul>
-          <li>Join the room: JOIN {{ room.code }}</li>
-          <li>Add a song to the playlist: ADD <i>song name</i></li>
-          <li>Skip a song: SKIP</li>
+
+        <div class="commands-details-container">
+          <p class="commands-details-title">Phone Number</p>
+          <p class="commands-details-value commands-details-phone">{{ phoneNo }}</p>
+        </div>
+
+        <div class="commands-details-container">
+          <p class="commands-details-title">Room Code</p>
+          <p class="commands-details-value">{{ room.code }}</p>
+        </div>
+
+        <ul class="commands-list">
+          <li><b>JOIN {{ room.code }}</b> to join a room</li>
+          <li><b>ADD <i>song name</i></b> to add a song</li>
+          <li><b>SKIP</b> to skip the current song</li>
         </ul>
       </div>
+
+      <!-- <div class="meta-container">
+        <p class="commands-details-title">Room Guests</p>
+        <p class="commands-details-value">{{ room.guests || 20 }}</p>
+      </div> -->
 
       <div class="queue-container">
         <p class="queue-container-title">{{ playlistTitle }}</p>
@@ -187,6 +202,7 @@ export default {
   grid-gap: 32px;
   grid-template-areas:
     'playback'
+    'meta'
     'commands'
     'playlist';
 }
@@ -194,8 +210,8 @@ export default {
 @media screen and (min-width: 400px) {
   .contents {
     grid-template-areas:
-      'playback commands'
-      'playback playlist';
+      'playback commands '
+      'playback playlist ';
     grid-template-columns: 400px auto;
   }
 
@@ -253,13 +269,69 @@ export default {
   border-right: 5px solid black;
 }
 
-.commands-container {
-  grid-area: 'commands';
+.meta-container {
+  grid-area: meta;
   box-shadow: 10px 10px 0 0 black;
   border: 5px solid black;
+  font-size: 1.8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.commands-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.commands-details-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.commands-details-value {
+  font-size: 3.2rem;
+  font-weight: bold;
+}
+
+.commands-details-phone {
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+}
+
+.commands-container {
+  grid-area: commands;
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+  font-size: 1.8em;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.commands-container-values {
+  margin-right: 60px;
+}
+
+.commands-container-values p:first-child {
+  margin-bottom: 8px;
+}
+
+.commands-list {
+  list-style-type: none;
+}
+
+.commands-list li {
+  margin-top: 8px;
 }
 
 .queue-container {
+  grid-area: playlist;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
