@@ -13,4 +13,7 @@ dist
 *.iml
 *.txt
 
-ngrok.exe
+.idea
+.vscode
+__pycache__
+ngrok
