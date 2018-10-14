@@ -113,6 +113,17 @@ export default {
       this.track = response.data.item
       this.playing = response.data.is_playing
 
+      if (response.data.progress_ms >= response.data.item.duration_ms * 0.95) {
+        if (!this.nextSong) {
+          await this.$http.get(
+            `${Constants.BACKEND_SERVER}/next-song/${this.room.code}`
+          )
+        }
+        this.nextSong = true
+      } else {
+        this.nextSong = false
+      }
+
       if (response.data.device != null) {
         this.device = response.data.device
       } else {
@@ -195,9 +206,13 @@ export default {
 
       this.destroyInterval()
       this.playing = !this.playing
-      setTimeout(this.setupInterval, 500)
+      setTimeout(this.setupInterval, 1000)
     },
     async onNext() {
+      await this.$http.get(
+        `${Constants.BACKEND_SERVER}/next-song/${this.room.code}`
+      )
+
       const response = await this.$http.post(
         'https://api.spotify.com/v1/me/player/next',
         {},
@@ -211,7 +226,7 @@ export default {
     setupInterval: function() {
       this.interval = setInterval(() => {
         this.getCurrentData()
-      }, 500)
+      }, 1000)
     },
     destroyInterval: function() {
       clearInterval(this.interval)
