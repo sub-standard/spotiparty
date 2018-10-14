@@ -40,10 +40,10 @@
         </ul>
       </div>
 
-      <!-- <div class="meta-container">
+      <div class="meta-container">
         <p class="commands-details-title">Room Guests</p>
-        <p class="commands-details-value">{{ room.guests || 20 }}</p>
-      </div> -->
+        <p class="commands-details-value">{{ room.guests }}</p>
+      </div>
 
       <div class="queue-container">
         <p class="queue-container-title">{{ playlistTitle }}</p>
@@ -126,7 +126,11 @@ export default {
       this.room.guests = response.data.guests
     },
     async getCurrentData() {
-      Promise.all([this.getPlaybackState(), this.getNoGuests()])
+      Promise.all([
+        this.getPlaybackState(),
+        this.getNoGuests(),
+        this.getPlaylistContents()
+      ])
     },
     async onPrevious() {
       const response = await this.$http.post(
@@ -264,6 +268,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 32px;
 }
 
 .commands-details-container {
@@ -360,9 +365,9 @@ export default {
 @media screen and (min-width: 500px) {
   .contents {
     grid-template-areas:
-      'playback commands'
-      'playback playlist';
-    grid-template-columns: 400px auto;
+      'playback commands commands'
+      'playback playlist meta';
+    grid-template-columns: 400px auto 200px;
   }
 
   .queue-container {
