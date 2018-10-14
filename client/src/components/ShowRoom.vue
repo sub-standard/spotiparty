@@ -231,6 +231,7 @@ export default {
   padding: 16px;
   text-align: center;
   margin-bottom: 16px;
+  background-color: #fefefe;
 }
 
 .playback-controls {
@@ -269,6 +270,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 32px;
+  background-color: #fefefe;
 }
 
 .commands-details-container {
@@ -276,6 +278,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #fefefe;
 }
 
 .commands-details-title {
@@ -304,6 +307,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #fefefe;
 }
 
 .commands-container-values {
@@ -330,6 +334,7 @@ export default {
   box-shadow: 10px 10px 0 0 black;
   border: 5px solid black;
   padding: 32px;
+  background-color: #fefefe;
 }
 
 .queue-container-title {

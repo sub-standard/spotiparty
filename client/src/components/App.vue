@@ -101,5 +101,12 @@ body {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   font-size: 62.5%;
   background-color: #fefefe;
+  background: repeating-linear-gradient(
+    -30deg,
+    #fefefe,
+    #fefefe 10px,
+    #f8f8f8 10px,
+    #f8f8f8 20px
+  );
 }
 </style>
