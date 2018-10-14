@@ -59,16 +59,25 @@ def delivery_receipt():
 
     return str(200)
 
+#
+# @app.route('/room-guests', methods=['GET'])
+# @cross_origin()
+# def request_guests():
+#     print("recieved a request")
+#     if request.get_json() == None:
+#         return str(200)
+#     room_id = request.get_json()["code"]
+#
+#     return jsonify({'guests': len(state["rooms"][room_id]["phone_numbers"])})
 
-@app.route('/room-guests', methods=['GET'])
+@app.route('/room-guests/<code>', methods=['GET'])
 @cross_origin()
-def request_guests():
+def request_guests(code):
     print("recieved a request")
-    if request.get_json() == None:
-        return str(200)
-    room_id = request.get_json()["code"]
-
-    return jsonify({'guests': len(state["rooms"][room_id]["phone_numbers"])})
+    print(code)
+    if not (code in state["rooms"]):
+        return jsonify({'guests': '0'})
+    return jsonify({'guests': len(state["rooms"][code]["phone_numbers"])})
 
 
 def handle_add_user(sender, room_number):
@@ -129,8 +138,3 @@ def handle_leave_room(sender):
 
 app.run(port=3000, host="127.0.0.1")
 
-@app.route('/room-guests/<code>', methods=['POST'])
-@cross_origin
-def request_guests(code):
-    print("recieved a request")
-    return jsonify({'guests': len(state["rooms"][code]["phone_numbers"])})
