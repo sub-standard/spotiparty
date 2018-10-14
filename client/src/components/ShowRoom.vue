@@ -8,7 +8,13 @@
             <div class="playback-info-song">{{ track.name + ' - ' + track.artists[0].name }}</div>
           </div>
         </template>
-        <div class="playback-controls">
+        <template v-else>
+          <div class="spotify-placeholder">
+            <font-awesome-icon :icon="['fab', 'spotify']" class="fa-fw" />
+          </div>
+          <div class="playback-info-song">{{ device != undefined ? `Connected to ${device.name}` : 'Open the Spotify app to start listening' }}</div>
+        </template>
+        <div v-if="device != undefined" class="playback-controls">
           <button class="playback-button" v-on:click="onPrevious">
             <font-awesome-icon icon="backward" />
           </button>
@@ -69,7 +75,8 @@ export default {
     tracks: null,
     playing: false,
     interval: null,
-    playlistTitle: null
+    playlistTitle: null,
+    device: undefined
   }),
   props: {
     room: Room,
@@ -105,6 +112,28 @@ export default {
 
       this.track = response.data.item
       this.playing = response.data.is_playing
+
+      if (response.data.device != null) {
+        this.device = response.data.device
+      } else {
+        const responseDevices = await this.$http.get(
+          'https://api.spotify.com/v1/me/player/devices',
+          {
+            headers: {
+              Authorization: 'Bearer ' + this.accessToken.token
+            }
+          }
+        )
+
+        if (
+          responseDevices.data.devices != null &&
+          responseDevices.data.devices.length > 0
+        ) {
+          this.device = responseDevices.data.devices[0]
+        } else {
+          this.device = undefined
+        }
+      }
     },
     async getPlaylistContents() {
       const response = await this.$http.get(
@@ -144,9 +173,17 @@ export default {
       )
     },
     async onPlayPause() {
+      const body =
+        this.track != null
+          ? {}
+          : { context_uri: `spotify:playlist:${this.room.playlistId}` }
       const response = await this.$http.put(
         `https://api.spotify.com/v1/me/player/${
           this.playing ? 'pause' : 'play'
+        }${
+          this.track == undefined && this.device != undefined
+            ? `?device_id=${this.device.id}`
+            : ''
         }`,
         {},
         {
@@ -214,6 +251,20 @@ export default {
   display: flex;
   flex-direction: column;
   grid-area: playback;
+}
+
+.spotify-placeholder {
+  width: 100%;
+  box-shadow: 10px 10px 0 0 black;
+  border: 5px solid black;
+  margin-bottom: 16px;
+  color: #d5f6e0;
+}
+
+.spotify-placeholder .svg-inline--fa {
+  width: 100%;
+  height: auto;
+  padding: 60px;
 }
 
 .playback-info-art {
