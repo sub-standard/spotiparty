@@ -79,13 +79,13 @@ def request_guests(code):
         return jsonify({'guests': '0'})
     return jsonify({'guests': len(state["rooms"][code]["phone_numbers"])})
 
-
-@app.route('/next-song/<code>', methods=['GET'])
-@cross_origin()
-def update_next_song(code):
-    print("next song")
-    state['rooms'][code]["spotify_queue"].next_song()
-    return str(200)
+#
+# @app.route('/next-song/<code>', methods=['GET'])
+# @cross_origin()
+# def update_next_song(code):
+#     print("next song")
+#     state['rooms'][code]["spotify_queue"].next_song()
+#     return str(200)
 
 def handle_add_user(sender, room_number):
     rooms = state['rooms']

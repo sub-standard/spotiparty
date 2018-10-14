@@ -26,10 +26,10 @@ def handle_add_song(song_name,sender):
 
 
 def send_text(sender, text):
-<<<<<<< HEAD
+
     client = nexmo.Client() #Nexmo API key / Secret key
     client.send_message({'from': 'Spotify Player', 'to': sender, 'text': text})
-=======
+
     client = nexmo.Client('355a63c2', 'vZQnmEP5A8lZhtYE')
     client.send_message({'from': 'Spotify Player', 'to': sender, 'text': text})
 
@@ -37,4 +37,4 @@ def handle_skip_song(sender):
     room = phones[sender]
     token = state[room]["access_token"]
     queue = state[room]["spotify_queue"]
->>>>>>> Server
+
