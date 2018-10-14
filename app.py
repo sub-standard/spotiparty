@@ -9,7 +9,7 @@ def get_track_id(query,token):
     if(query == ""):
         return None
     spotify = spotipy.Spotify(auth=token)
-    results = spotify.search(query, limit=1)
+    results = spotify.search("track:" + query, type="track", limit=1)
     if(len(results['tracks']['items']) == 0):
         return get_track_id(query[:-1],token)
     print(results['tracks']['items'][0]['name'])
