@@ -1,8 +1,8 @@
 {
   "private": true,
   "name": "hackference",
-  "productName": "hackference",
-  "description": "My legendary Vue project",
+  "productName": "SpotiParty",
+  "description": "",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
