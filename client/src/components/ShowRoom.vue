@@ -323,7 +323,16 @@ export default {
 }
 
 .commands-list li {
-  margin-top: 8px;
+  margin-top: 12px;
+}
+
+.commands-list li b {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #3ad772;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .queue-container {
