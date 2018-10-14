@@ -35,7 +35,7 @@
 
         <ul class="commands-list">
           <li><b>JOIN {{ room.code }}</b> to join a room</li>
-          <li><b>ADD <i>song name</i></b> to add a song</li>
+          <li><b>ADD song name</b> to add a song</li>
           <li><b>SKIP</b> to skip the current song</li>
         </ul>
       </div>
@@ -330,9 +330,8 @@ export default {
   padding: 4px 8px;
   border-radius: 4px;
   background-color: #3ad772;
-  color: white;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .queue-container {
