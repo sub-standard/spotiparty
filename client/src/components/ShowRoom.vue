@@ -42,7 +42,7 @@
 
       <div class="meta-container">
         <p class="commands-details-title">Room Guests</p>
-        <p class="commands-details-value">{{ room.guests }}</p>
+        <p class="commands-details-value">{{ room.guests || 0 }}</p>
       </div>
 
       <div class="queue-container">
