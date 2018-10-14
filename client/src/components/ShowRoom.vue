@@ -259,6 +259,7 @@ export default {
   border: 5px solid black;
   margin-bottom: 16px;
   color: #d5f6e0;
+  background-color: #fefefe;
 }
 
 .spotify-placeholder .svg-inline--fa {
