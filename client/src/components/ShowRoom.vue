@@ -52,7 +52,7 @@
       </div>
 
       <div class="queue-container">
-        <p class="queue-container-title">{{ playlistTitle }}</p>
+        <p class="queue-container-title">Up Next on {{ playlistTitle }}</p>
         <ol>
           <li v-for="t in tracks" v-bind:key="t.id">
             <span class="track-name">{{ t.name }}</span>
