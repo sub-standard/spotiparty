@@ -206,19 +206,6 @@ export default {
     'playlist';
 }
 
-@media screen and (min-width: 400px) {
-  .contents {
-    grid-template-areas:
-      'playback commands '
-      'playback playlist ';
-    grid-template-columns: 400px auto;
-  }
-
-  .queue-container {
-    overflow: scroll;
-  }
-}
-
 .playback-container {
   display: flex;
   flex-direction: column;
@@ -309,7 +296,8 @@ export default {
   font-size: 1.8em;
   padding: 32px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -367,5 +355,23 @@ export default {
 .queue-container ol li .track-artist {
   font-size: 1rem;
   margin-left: 0.2rem;
+}
+
+@media screen and (min-width: 500px) {
+  .contents {
+    grid-template-areas:
+      'playback commands'
+      'playback playlist';
+    grid-template-columns: 400px auto;
+  }
+
+  .queue-container {
+    overflow: scroll;
+  }
+
+  .commands-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 </style>
