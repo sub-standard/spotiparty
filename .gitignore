@@ -17,3 +17,4 @@ dist
 .vscode
 __pycache__
 ngrok
+*.pyc
