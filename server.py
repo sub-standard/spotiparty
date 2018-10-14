@@ -41,7 +41,7 @@ def create_room():
 @app.route('/webhooks/nexmo', methods=['GET','POST'])
 @cross_origin()
 def delivery_receipt():
-    text_message = request.get_json()['text']
+    text_message = request.get_json()['text'].lower()
     sender = request.get_json()['msisdn'] #sender phone number
     print(text_message)
     if "join" in text_message:
@@ -80,6 +80,13 @@ def request_guests(code):
     return jsonify({'guests': len(state["rooms"][code]["phone_numbers"])})
 
 
+@app.route('/next-song/<code>', methods=['GET'])
+@cross_origin()
+def update_next_song(code):
+    print("next song")
+    state['rooms'][code]["spotify_queue"].next_song()
+    return str(200)
+
 def handle_add_user(sender, room_number):
     rooms = state['rooms']
     if room_number not in rooms:
@@ -94,7 +101,8 @@ def handle_add_user(sender, room_number):
 
 
 def handle_add_song(song_name,sender):
-    print(state)
+    if not (sender in phones):
+        return
     room = phones[sender]
     print(room)
     token = state["rooms"][room]["access_token"]
@@ -112,7 +120,7 @@ def send_text(sender, text):
 
 
 def handle_skip_song(sender):
-    if not( sender in phones):
+    if not(sender in phones):
         return
     room = phones[sender]
     phones_in_room = state['rooms'][room]["phone_numbers"]
