@@ -10,9 +10,7 @@ dist
 *.txt
 *.xml
 *.xml
-<<<<<<< HEAD
 *.iml
 *.txt
-=======
+
 ngrok.exe
->>>>>>> Server
